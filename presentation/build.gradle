@@ -1,0 +1,109 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "ru.karpyzin.cepka"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    //Clean Architecture
+    implementation project(':domain')
+    implementation project(':data')
+
+    //Hilt
+    implementation deps.hilt.android
+    kapt deps.hilt.compiler
+    kapt deps.hilt.androidxCompiler
+    implementation deps.hilt.lifecycle
+
+    //Google
+    implementation deps.preference
+
+    //Fragment
+    implementation deps.fragment
+
+    //Lifecycle
+    implementation deps.lifecycle.common
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.viewmodel
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.reactivestreams
+    implementation deps.lifecycle.livedata
+    implementation deps.lifecycle.livedatacore
+
+    //Kotlin
+    implementation deps.kotlin
+    implementation deps.ktx
+
+    //Design
+    implementation deps.material
+    implementation deps.swiperefreshlayout
+    implementation deps.constraintlayout
+    implementation deps.appcompat
+
+    //Coroutines
+    implementation deps.coroutines
+
+    //OkHttp
+    implementation deps.okhttp.okhttp
+    implementation deps.okhttp.interceptor
+
+    //Retrofit
+    implementation deps.retrofit.retrofit
+    implementation deps.retrofit.converter
+
+    //Timber
+    implementation deps.timber
+
+    //Gson
+    implementation deps.gson
+
+    //Glide
+    implementation deps.glide
+
+    //Room
+    implementation deps.room.runtime
+    kapt deps.room.compiler
+    implementation deps.room.ktx
+
+    //Tests
+    androidTestImplementation deps.junit
+    androidTestImplementation deps.espresso
+
+    //TODO
+
+    api "com.squareup:kotlinpoet:1.5.0"
+    annotationProcessor "com.google.auto.service:auto-service:1.0-rc6"
+    kapt "com.google.auto.service:auto-service:1.0-rc6"
+}

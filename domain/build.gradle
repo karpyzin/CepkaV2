@@ -1,0 +1,13 @@
+apply plugin: 'kotlin'
+
+dependencies {
+
+    implementation deps.kotlin
+    implementation deps.ktx
+
+    //Coroutines
+    implementation deps.coroutines
+
+    //Hilt
+    implementation deps.hilt.android
+}
