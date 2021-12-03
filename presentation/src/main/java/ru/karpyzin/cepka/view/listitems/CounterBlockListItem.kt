@@ -5,13 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.karpyzin.cepka.adapter.BaseViewHolder
 import ru.karpyzin.cepka.adapter.HeykaListItem
-import ru.karpyzin.cepka.databinding.ListitemHintBinding
-import ru.karpyzin.domain.hint.Hint
+import ru.karpyzin.cepka.databinding.ListitemCounterBlockBinding
 
-class HintListItem(private val data: Hint) : HeykaListItem {
-    override fun getViewType(): Int = 2
-
-    override fun getId(): Long = data.id.hashCode().toLong()
+class CounterBlockListItem() : HeykaListItem {
+    override fun getViewType(): Int = 8
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as? ViewHolder
@@ -19,7 +16,14 @@ class HintListItem(private val data: Hint) : HeykaListItem {
     }
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        ViewHolder(ListitemHintBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        ViewHolder(
+            ListitemCounterBlockBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
 
-    private class ViewHolder(val binding: ListitemHintBinding) : BaseViewHolder(binding.root)
+    private class ViewHolder(val binding: ListitemCounterBlockBinding) :
+        BaseViewHolder(binding.root)
 }

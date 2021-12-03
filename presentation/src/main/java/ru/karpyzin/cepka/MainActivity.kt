@@ -1,28 +1,19 @@
 package ru.karpyzin.cepka
 
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.karpyzin.cepka.databinding.ActivityMainBinding
-import ru.karpyzin.cepka.mvvm.home.HomeFragment
-import ru.karpyzin.cepka.mvvm.subscriptions.SubscriptionsFragment
-import ru.karpyzin.cepka.mvvm.week.WeekFragment
-import ru.karpyzin.cepka.navigation.Screens
-import ru.karpyzin.cepka.view.viewBinding
-import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var navigatorHolder: NavigatorHolder
+    private lateinit var navController: NavController
 
-    private val navigator = SupportAppNavigator(this, R.id.mainFrameContainer)
     private val viewModel: MainActivityViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
@@ -30,29 +21,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.init()
+        //viewModel.init()
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
 
-        binding.bottomNavigation.setOnNavigationItemSelectedListener {
-            val screen = when (it.itemId) {
-                R.id.navigation_home -> Screens.HomeFragmentScreen
-                R.id.navigation_week -> Screens.WeekFragmentScreen
-                R.id.navigation_subscriptions -> Screens.SubscriptionsFragmentScreen
-                else -> Screens.HomeFragmentScreen
-            }
-            viewModel.changeMainScreen(screen)
-            true
-        }
+        binding.bottomNavigation.setupWithNavController(navController)
 
-        binding.bottomNavigation.selectedItemId = R.id.navigation_home
     }
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        navigatorHolder.setNavigator(navigator)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        navigatorHolder.removeNavigator()
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
     }
 }

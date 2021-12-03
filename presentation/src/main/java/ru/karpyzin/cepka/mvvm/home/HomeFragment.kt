@@ -2,45 +2,35 @@ package ru.karpyzin.cepka.mvvm.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.karpyzin.cepka.R
-import ru.karpyzin.cepka.adapter.HeykaAdapter
-import ru.karpyzin.cepka.adapter.HeykaListItem
+import ru.karpyzin.cepka.adapter.CepkaAdapter
 import ru.karpyzin.cepka.base.BaseFragment
 import ru.karpyzin.cepka.databinding.FragmentHomeBinding
-import ru.karpyzin.cepka.view.listitems.HintListItem
+import ru.karpyzin.cepka.ext.collectWhenResumed
 import ru.karpyzin.cepka.view.viewBinding
-import ru.karpyzin.domain.hint.Hint
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
+
+    private val adapter by lazy { CepkaAdapter() }
+    private val viewModel: HomeViewModel by activityViewModels()
+
     override val binding by viewBinding(FragmentHomeBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = HeykaAdapter()
+        initAdapter()
+
+        viewModel.itemsFlow.collectWhenResumed(lifecycleScope) {
+            adapter.setItems(it)
+        }
+
+    }
+
+    private fun initAdapter() {
         binding.homeRecyclerView.adapter = adapter
         binding.homeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        val testList = mutableListOf<HeykaListItem>()
-        testList.add(HintListItem(Hint(6)))
-        testList.add(HintListItem(Hint(1)))
-        testList.add(HintListItem(Hint(9)))
-        testList.add(HintListItem(Hint(6)))
-        testList.add(HintListItem(Hint(1)))
-        testList.add(HintListItem(Hint(9)))
-        testList.add(HintListItem(Hint(6)))
-        testList.add(HintListItem(Hint(1)))
-        testList.add(HintListItem(Hint(9)))
-        testList.add(HintListItem(Hint(6)))
-        testList.add(HintListItem(Hint(1)))
-        testList.add(HintListItem(Hint(9)))
-        testList.add(HintListItem(Hint(6)))
-        testList.add(HintListItem(Hint(1)))
-        testList.add(HintListItem(Hint(9)))
-        testList.add(HintListItem(Hint(3)))
-        testList.add(HintListItem(Hint(6)))
-        testList.add(HintListItem(Hint(1)))
-        testList.add(HintListItem(Hint(9)))
-        adapter.setItems(testList)
     }
 }

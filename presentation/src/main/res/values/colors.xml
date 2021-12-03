@@ -11,5 +11,13 @@
     <color name="blue">#007EDF</color>
     <color name="blue_light">#D2DDE4</color>
     <color name="blue_dark">#00589C</color>
-    <color name="transparent">#00000000</color>
+    <color name="green">#58BF4C</color>
+    <color name="orange">#9D8047</color>
+    <color name="red">#FF6868</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="purple_dark">#474c9d</color>
+    <color name="red2">#FFA0A0</color>
+
+    <color name="text_color_bold">#FFFFFF</color>
+    <color name="text_color_hint">#99FFFFFF</color>
 </resources>

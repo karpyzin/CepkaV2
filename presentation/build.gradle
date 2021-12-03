@@ -4,13 +4,13 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "ru.karpyzin.cepka"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -96,6 +96,9 @@ dependencies {
     implementation deps.room.runtime
     kapt deps.room.compiler
     implementation deps.room.ktx
+
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0-alpha07'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.0-alpha07'
 
     //Tests
     androidTestImplementation deps.junit

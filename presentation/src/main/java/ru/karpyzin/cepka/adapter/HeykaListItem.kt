@@ -10,6 +10,7 @@ interface HeykaListItem {
     fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int)
     fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
     fun getViewHolderHash(): Int = 0
+    fun deactivate(holder: RecyclerView.ViewHolder, position: Int) {}
 
     interface DecorationListAdapter {
         fun getPositionByViewHolderPosition(viewHolderPosition: Int): Int
