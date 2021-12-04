@@ -45,7 +45,9 @@ class HomeViewModel @ViewModelInject constructor(
 
         private val hintListener = object : HintListItem.Listener {
             override fun onClick(hintId: Int) {
-                //TODO
+                viewModelScope.launch {
+                    openScreen.emit(R.id.navigation_premium)
+                }
             }
 
         }

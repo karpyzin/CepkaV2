@@ -16,4 +16,8 @@
         android:id="@+id/navigation_subscriptions"
         android:name="ru.karpyzin.cepka.mvvm.subscriptions.SubscriptionsFragment"
         android:label="SubscriptionsFragment" />
+    <fragment
+        android:id="@+id/navigation_premium"
+        android:name="ru.karpyzin.cepka.mvvm.premium.PremiumFragment"
+        android:label="PremiumFragment" />
 </navigation>
