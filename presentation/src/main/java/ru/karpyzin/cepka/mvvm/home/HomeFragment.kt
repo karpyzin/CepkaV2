@@ -31,12 +31,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             adapter.setItems(it)
         }
 
-        lifecycleScope.launch {
-            while (true) {
-                delay(5000)
-                requireActivity().inAppMessage(InAppMessage("Привет!", "Как дела, братишка?"))
-            }
-
+        viewModel.inAppMessage.collectWhenResumed(lifecycleScope) {
+            requireActivity().inAppMessage(it)
         }
 
     }

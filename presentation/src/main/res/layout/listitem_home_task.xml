@@ -23,9 +23,9 @@
             android:id="@+id/taskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
             android:textColor="@color/text_color_bold"
             android:textSize="16sp"
+            app:fontFamily="sans-serif-black"
             tools:text="Проснуться" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 

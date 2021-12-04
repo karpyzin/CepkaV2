@@ -10,6 +10,7 @@ import ru.karpyzin.cepka.R
 import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.base.BaseViewModel
 import ru.karpyzin.cepka.view.listitems.*
+import ru.karpyzin.cepka.view.widgets.InAppMessage
 import ru.karpyzin.domain.hint.HintModel
 import ru.karpyzin.domain.hint.HintUseCase
 import ru.karpyzin.domain.reminders.ReminderModel
@@ -20,6 +21,8 @@ class HomeViewModel @ViewModelInject constructor(
     private val remindersUseCase: RemindersUseCase,
     private val hintUseCase: HintUseCase
 ) : BaseViewModel(application) {
+
+    val inAppMessage = MutableSharedFlow<InAppMessage>()
 
     private val timelineManager = TimelineManager()
 
@@ -51,11 +54,15 @@ class HomeViewModel @ViewModelInject constructor(
             override fun onDoneClick(reminderId: Int) {
                 viewModelScope.launch(Dispatchers.IO) {
                     remindersUseCase.complete(reminderId)
+                    inAppMessage.emit(InAppMessage("Так держать!", "Напоминание перенесено в архив \uD83D\uDCDA"))
                 }
             }
 
             override fun onDismissClick(reminderId: Int) {
-
+                viewModelScope.launch(Dispatchers.IO) {
+                    remindersUseCase.complete(reminderId)
+                    inAppMessage.emit(InAppMessage("Готово", "Перенес напоминание на 15 минут ⏳"))
+                }
             }
 
             override fun onMoreClick(reminderId: Int) {

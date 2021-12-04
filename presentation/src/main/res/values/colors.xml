@@ -19,7 +19,7 @@
     <color name="red2">#FFA0A0</color>
 
     <color name="text_color_bold">#FFFFFF</color>
-    <color name="text_color_hint">#99FFFFFF</color>
+    <color name="text_color_hint">#C8C8C8</color>
 
     <color name="inappmessage_color">#2C2F60</color>
 </resources>
