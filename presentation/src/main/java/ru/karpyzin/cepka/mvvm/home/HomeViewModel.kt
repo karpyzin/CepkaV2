@@ -3,106 +3,104 @@ package ru.karpyzin.cepka.mvvm.home
 import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import ru.karpyzin.cepka.R
-import ru.karpyzin.cepka.adapter.HeykaListItem
+import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.base.BaseViewModel
 import ru.karpyzin.cepka.view.listitems.*
-import ru.karpyzin.domain.hint.Hint
-import ru.karpyzin.domain.reminders.Reminder
+import ru.karpyzin.domain.hint.HintModel
+import ru.karpyzin.domain.hint.HintUseCase
+import ru.karpyzin.domain.reminders.ReminderModel
 import ru.karpyzin.domain.reminders.RemindersUseCase
-import timber.log.Timber
-import java.util.*
 
 class HomeViewModel @ViewModelInject constructor(
     application: Application,
-    private val remindersUseCase: RemindersUseCase
+    private val remindersUseCase: RemindersUseCase,
+    private val hintUseCase: HintUseCase
 ) : BaseViewModel(application) {
 
     private val timelineManager = TimelineManager()
 
-    val itemsFlow = combine(
-        remindersUseCase.remindersFlow.distinctUntilChanged()
-    ) {
-        timelineManager.apply {
-            updateReminders(it.first())
-            updateTop()
-            updateBottom()
+    private val remindersFlow = remindersUseCase.remindersFlow.map { timelineManager.updateReminders(it) }
+    private val hintsFlow = hintUseCase.hints.map { timelineManager.updateTop(it) }
+
+    val itemsFlow = combine(hintsFlow, remindersFlow) { f, s ->
+        val list = mutableListOf<CepkaListItem>()
+        list.addAll(f)
+        list.addAll(s)
+        list.addAll(timelineManager.updateCounters())
+        return@combine list
+    }
+
+    inner class TimelineManager {
+        private val reminders = mutableListOf<CepkaListItem>()
+        private val topMock = mutableListOf<CepkaListItem>()
+
+        //region Listeners
+
+        private val hintListener = object : HintListItem.Listener {
+            override fun onClick(hintId: Int) {
+                //TODO
+            }
+
         }
-        return@combine timelineManager.updateItems()
-        //itemsFlow.emit(getReminders(it.first()))
-    }
 
-     init {
-        Timber.e("asdasasdasd")
-    }
+        private val reminderListener = object : RemindBlockListItem.Listener {
+            override fun onDoneClick(reminderId: Int) {
+                viewModelScope.launch(Dispatchers.IO) {
+                    remindersUseCase.complete(reminderId)
+                }
+            }
 
-    private fun getReminders(reminders: List<Reminder>): List<HeykaListItem> {
-        val list = mutableListOf<HeykaListItem>()
-        list.add(HomeHeaderListItem())
-        list.add(HintsBlockListItem(Hint(123)))
-        list.takeIf { reminders.isNotEmpty() }?.add(HomeSubtitleListItem("Reminders"))
-        list.addAll(reminders.map { RemindBlockListItem(it) })
-        list.add(HomeSubtitleListItem("Today`s plan"))
-        list.add(BlockListItem(R.color.red))
-        list.add(HomeSubtitleListItem("Cup of water"))
-        list.add(CounterBlockListItem())
-        return list
-    }
+            override fun onDismissClick(reminderId: Int) {
 
-    fun getOthers(): List<HeykaListItem> {
-        val testList = mutableListOf<HeykaListItem>()
-        testList.add(HomeHeaderListItem())
-        testList.add(HintsBlockListItem(Hint(123)))
-        testList.add(HomeSubtitleListItem("Today`s plan"))
-        testList.add(BlockListItem(R.color.orange))
-        testList.add(HomeSubtitleListItem("Cup of water"))
-        testList.add(CounterBlockListItem())
-        return testList
-    }
+            }
 
-    class TimelineManager {
-        private val reminders = mutableListOf<HeykaListItem>()
-        private val topMock = mutableListOf<HeykaListItem>()
-        private val bottomMock = mutableListOf<HeykaListItem>()
+            override fun onMoreClick(reminderId: Int) {
 
-        fun updateReminders(list: List<Reminder>) {
+            }
+
+        }
+
+        private val counterListener = object : CounterBlockListItem.Listener {
+            override fun onPlus(counterId: Int) {
+
+            }
+
+            override fun onMinus(counterId: Int) {
+
+            }
+
+        }
+
+        //endregion
+
+        fun updateReminders(list: List<ReminderModel>): List<CepkaListItem> {
             reminders.clear()
             reminders.takeIf { list.isNotEmpty() }?.add(HomeSubtitleListItem("Reminders"))
-            Timber.e("aasdasdasd $list")
             list.forEach { reminder ->
-                reminders.add(RemindBlockListItem(reminder))
+                val item = RemindBlockListItem(reminder)
+
+                item.listener = reminderListener
+                reminders.add(item)
             }
+            return reminders
         }
 
-        fun updateItems(): List<HeykaListItem> {
-            val items = mutableListOf<HeykaListItem>()
-            items.addAll(topMock)
-            items.addAll(reminders)
-            items.addAll(bottomMock)
-            return items
-        }
-
-        fun updateTop() {
+        fun updateTop(hints: List<HintModel>): List<CepkaListItem> {
             topMock.clear()
-            topMock.add(HomeHeaderListItem())
-            topMock.add(HintsBlockListItem(Hint(123)))
+            topMock.add(HomeHeaderListItem(HomeHeaderListItem.HeaderData("Игорь", true)))
+            topMock.add(HintsBlockListItem(hints, hintListener))
+            return topMock
         }
 
-        fun updateBottom() {
-            bottomMock.clear()
-            bottomMock.add(HomeSubtitleListItem("Today`s plan"))
-            bottomMock.add(BlockListItem(R.color.red))
-            bottomMock.add(HomeSubtitleListItem("Cup of water"))
-            bottomMock.add(CounterBlockListItem())
+        fun updateCounters(): List<CepkaListItem> {
+            val item = CounterBlockListItem(CounterBlockListItem.CounterData(1, 1, 5, R.drawable.ic_cup))
+            item.listener = counterListener
+            return listOf(item)
         }
-    }
-
-    override fun onCleared() {
-        viewModelScope.cancel()
-        super.onCleared()
     }
 
 }

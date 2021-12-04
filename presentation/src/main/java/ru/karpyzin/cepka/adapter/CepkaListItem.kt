@@ -3,7 +3,7 @@ package ru.karpyzin.cepka.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-interface HeykaListItem {
+interface CepkaListItem {
     fun getViewType(): Int
     fun getId(): Long = RecyclerView.NO_ID
 
@@ -13,7 +13,7 @@ interface HeykaListItem {
     fun deactivate(holder: RecyclerView.ViewHolder, position: Int) {}
 
     interface DecorationListAdapter {
-        fun getPositionByViewHolderPosition(viewHolderPosition: Int): Int
-        fun getItems(): List<HeykaListItem>
+        //fun getPositionByViewHolderPosition(viewHolderPosition: Int): Int
+        fun getItems(): List<CepkaListItem>
     }
 }

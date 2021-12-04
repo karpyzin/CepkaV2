@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.Cepka" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Primary brand color. -->
@@ -13,5 +13,6 @@
         <item name="android:statusBarColor">@color/blue</item>
         <!-- Action bar. -->
         <item name="android:windowActionBar">false</item>
+        <item name="fontFamily">sans-serif</item>
     </style>
 </resources>

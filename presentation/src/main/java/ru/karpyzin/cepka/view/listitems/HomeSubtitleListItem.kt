@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.karpyzin.cepka.adapter.BaseViewHolder
-import ru.karpyzin.cepka.adapter.HeykaListItem
+import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.databinding.ListitemHomeSubtitleBinding
 
-class HomeSubtitleListItem(private val title: String) : HeykaListItem {
+class HomeSubtitleListItem(private val title: String) : CepkaListItem {
     override fun getViewType(): Int = 5
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -24,6 +24,5 @@ class HomeSubtitleListItem(private val title: String) : HeykaListItem {
             )
         )
 
-    private class ViewHolder(val binding: ListitemHomeSubtitleBinding) :
-        BaseViewHolder(binding.root)
+    private class ViewHolder(val binding: ListitemHomeSubtitleBinding) : BaseViewHolder(binding.root)
 }

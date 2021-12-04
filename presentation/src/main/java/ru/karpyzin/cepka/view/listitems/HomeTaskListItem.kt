@@ -2,13 +2,12 @@ package ru.karpyzin.cepka.view.listitems
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import ru.karpyzin.cepka.adapter.BaseViewHolder
-import ru.karpyzin.cepka.adapter.HeykaListItem
+import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.databinding.ListitemHomeTaskBinding
 
-class HomeTaskListItem(private val task: Task) : HeykaListItem {
+class HomeTaskListItem(private val task: Task) : CepkaListItem {
     override fun getViewType(): Int = 6
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

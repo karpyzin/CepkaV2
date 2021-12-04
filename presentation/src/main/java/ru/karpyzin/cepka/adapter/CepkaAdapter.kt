@@ -1,26 +1,23 @@
 package ru.karpyzin.cepka.adapter
 
-import android.util.SparseIntArray
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
 
-class CepkaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
-    HeykaListItem.DecorationListAdapter, Adapter {
+class CepkaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CepkaListItem.DecorationListAdapter, Adapter {
 
-    private var items = CopyOnWriteArrayList<HeykaListItem>()
-    private val mViewTypesPositions = SparseIntArray()
+    private var items = CopyOnWriteArrayList<CepkaListItem>()
+    private val mViewTypesPositions = hashMapOf<Int, Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val posViewHolder: Int = mViewTypesPositions.get(viewType)
-        val holderPosition: Int = getPositionByViewHolderPosition(posViewHolder)
-        return items[holderPosition].getViewHolder(parent, viewType)
+        val position: Int = mViewTypesPositions.getOrDefault(viewType, 0)
+        return items[position].getViewHolder(parent, viewType)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val heykaListItem: HeykaListItem? = if (position < itemCount) items[position] else null
-        heykaListItem?.onBindViewHolder(holder, position)
+        val cepkaListItem: CepkaListItem = items[position]
+        cepkaListItem.onBindViewHolder(holder, position)
     }
 
     override fun deactivateItem(holder: RecyclerView.ViewHolder?) {
@@ -28,11 +25,8 @@ class CepkaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
             return
         }
 
-        val position: Int = getPositionByViewHolderPosition(holder.adapterPosition)
-        if (position > 0 && position < items.size) {
-            val listItem: HeykaListItem? = if (position < items.size) items[position] else null
-            listItem?.deactivate(holder, position)
-        }
+        /*val listItem: CepkaListItem = items[holder.adapterPosition]
+        listItem.deactivate(holder, holder.adapterPosition)*/
     }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
@@ -42,27 +36,40 @@ class CepkaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
 
     override fun getItemCount(): Int = items.size
 
-    override fun getItemId(position: Int): Long  = items[position].getId()
+    override fun getItemId(position: Int): Long = items[position].getId()
 
     override fun getItemViewType(position: Int): Int {
-        val listItem: HeykaListItem? = if (position < itemCount) items[position] else null
-        var hash = 0
-
-        if (listItem != null) {
-            hash = Objects.hash(listItem.getViewType(), listItem.getViewHolderHash())
-        }
-
-        mViewTypesPositions.put(hash, position)
-        return hash
+        val listItem: CepkaListItem = items[position]
+        mViewTypesPositions.putIfAbsent(listItem.getViewType(), position)
+        return listItem.getViewType()
     }
 
-    fun setItems(list: List<HeykaListItem>) {
+    fun setItems(list: List<CepkaListItem>) {
+        val diffCallback = CepkaDiffUtil(list, items)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         items.clear()
         items.addAll(list)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
-    override fun getPositionByViewHolderPosition(viewHolderPosition: Int): Int = viewHolderPosition
+    override fun getItems(): List<CepkaListItem> = items
 
-    override fun getItems(): List<HeykaListItem> = items
+    inner class CepkaDiffUtil(
+        private val newList: List<CepkaListItem>,
+        private val oldList: List<CepkaListItem>
+    ) : DiffUtil.Callback() {
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].getId() == newList[newItemPosition].getId()
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].getViewHolderHash() == newList[newItemPosition].getViewHolderHash()
+        }
+
+    }
 }

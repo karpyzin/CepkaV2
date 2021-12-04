@@ -6,26 +6,33 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.karpyzin.cepka.adapter.BaseViewHolder
 import ru.karpyzin.cepka.adapter.CepkaAdapter
-import ru.karpyzin.cepka.adapter.HeykaListItem
+import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.databinding.ListitemHintsBinding
-import ru.karpyzin.domain.hint.Hint
+import ru.karpyzin.domain.hint.HintModel
+import java.util.*
 
-class HintsBlockListItem(private val data: Hint) : HeykaListItem {
+class HintsBlockListItem(private val data: List<HintModel>, val listener: HintListItem.Listener) : CepkaListItem {
+
+    private val adapter by lazy { CepkaAdapter() }
+
     override fun getViewType(): Int = 3
 
-    override fun getId(): Long = data.id.hashCode().toLong()
+    override fun getViewHolderHash(): Int {
+        return Objects.hash(data)
+    }
+
+    override fun getId(): Long = data.hashCode().toLong()
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as ViewHolder
 
-        val adapter = CepkaAdapter()
-        val list = mutableListOf<HeykaListItem>()
-        list.add(HintListItem(Hint(1253)))
-        list.add(HintListItem(Hint(56)))
-        list.add(HintListItem(Hint(253)))
-        list.add(HintListItem(Hint(85)))
-        list.add(HintListItem(Hint(3455)))
-        list.add(HintListItem(Hint(635675367)))
+        val list = mutableListOf<CepkaListItem>()
+        data.forEach {
+            val item = HintListItem(it)
+            item.listener = listener
+            list.add(item)
+        }
+
         holder.binding.hintRecyclerView.adapter = adapter
         holder.binding.hintRecyclerView.layoutManager = LinearLayoutManager(
             holder.binding.root.context, LinearLayoutManager.HORIZONTAL, false

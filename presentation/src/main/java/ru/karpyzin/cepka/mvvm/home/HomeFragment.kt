@@ -5,12 +5,16 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.karpyzin.cepka.R
 import ru.karpyzin.cepka.adapter.CepkaAdapter
 import ru.karpyzin.cepka.base.BaseFragment
 import ru.karpyzin.cepka.databinding.FragmentHomeBinding
 import ru.karpyzin.cepka.ext.collectWhenResumed
 import ru.karpyzin.cepka.view.viewBinding
+import ru.karpyzin.cepka.view.widgets.InAppMessage
+import ru.karpyzin.cepka.view.widgets.inAppMessage
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
@@ -25,6 +29,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         viewModel.itemsFlow.collectWhenResumed(lifecycleScope) {
             adapter.setItems(it)
+        }
+
+        lifecycleScope.launch {
+            while (true) {
+                delay(5000)
+                requireActivity().inAppMessage(InAppMessage("Привет!", "Как дела, братишка?"))
+            }
+
         }
 
     }

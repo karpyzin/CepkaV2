@@ -13,13 +13,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/appCompatImageView"
             android:layout_width="42dp"
             android:layout_height="42dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_reminder"
@@ -29,6 +30,7 @@
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/text_color_bold"
             android:textSize="20sp"
@@ -42,67 +44,103 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:textColor="@color/text_color_hint"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/titleTextView"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView"
             tools:text="Buy bread" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/remindMoreButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_vertical_dots"
-            app:tint="@color/text_color_bold" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="4dp"
+                app:srcCompat="@drawable/ic_vertical_dots"
+                app:tint="@color/text_color_bold" />
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/timeLeftTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="2"
             android:textColor="@color/text_color_hint"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/remindDescriptionTextView"
-            tools:text="In 10 minutes" />
+            tools:text="In 10 minutes. Veery long text. how do you do? What are you doing? In 10 minutes. Veery long text how do you do? What are you doing?" />
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
             android:background="@color/text_color_hint"
             app:layout_constraintTop_toBottomOf="@+id/timeLeftTextView" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cancelButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:drawableStart="@drawable/ic_close"
-            android:drawablePadding="8dp"
-            android:drawableTint="@color/white"
-            android:fontFamily="sans-serif"
-            android:text="Cancel"
-            android:textColor="@color/text_color_bold"
-            app:layout_constraintEnd_toStartOf="@+id/doneButton"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/doneButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
+            app:layout_constraintTop_toBottomOf="@id/divider">
 
-        <com.google.android.material.textview.MaterialTextView
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginVertical="8dp"
+                android:drawableStart="@drawable/ic_close"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/white"
+                android:text="Cancel"
+                android:textColor="@color/text_color_bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/doneButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:drawableStart="@drawable/ic_check"
-            android:drawablePadding="8dp"
-            android:drawableTint="@color/white"
-            android:fontFamily="sans-serif-medium"
-            android:text="Done"
-            android:textColor="@color/text_color_bold"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cancelButton"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
+            app:layout_constraintTop_toBottomOf="@id/divider">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginVertical="8dp"
+                android:drawableStart="@drawable/ic_check"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/white"
+                android:text="Done"
+                android:textColor="@color/text_color_bold" />
+        </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

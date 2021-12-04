@@ -4,18 +4,34 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.karpyzin.cepka.adapter.BaseViewHolder
-import ru.karpyzin.cepka.adapter.HeykaListItem
+import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.databinding.ListitemHintBinding
-import ru.karpyzin.domain.hint.Hint
+import ru.karpyzin.cepka.ext.setDebounceOnClickListener
+import ru.karpyzin.domain.hint.HintModel
+import java.util.*
 
-class HintListItem(private val data: Hint) : HeykaListItem {
+data class HintListItem(private val data: HintModel) : CepkaListItem {
+
+    interface Listener {
+        fun onClick(hintId: Int)
+    }
+
+    var listener: Listener? = null
+
     override fun getViewType(): Int = 2
 
     override fun getId(): Long = data.id.hashCode().toLong()
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder as? ViewHolder
-        //holder.binding.text.text = data.id.toString()
+    override fun getViewHolderHash(): Int {
+        return Objects.hash(data.id, data.primaryText, data.secondaryText)
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = with(holder as ViewHolder) {
+        binding.hintPrimaryText.text = data.primaryText
+        binding.hintSecondaryText.text = data.secondaryText
+        binding.root.setDebounceOnClickListener {
+            listener?.onClick(data.id)
+        }
     }
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =

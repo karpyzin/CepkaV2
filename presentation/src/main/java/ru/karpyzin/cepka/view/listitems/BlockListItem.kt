@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.karpyzin.cepka.adapter.BaseViewHolder
 import ru.karpyzin.cepka.adapter.CepkaAdapter
-import ru.karpyzin.cepka.adapter.HeykaListItem
+import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.databinding.ListitemBlockBinding
 
-class BlockListItem(@ColorRes private val backgroundColor: Int) : HeykaListItem {
+class BlockListItem(@ColorRes private val backgroundColor: Int) : CepkaListItem {
     override fun getViewType(): Int = 1
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -20,7 +20,7 @@ class BlockListItem(@ColorRes private val backgroundColor: Int) : HeykaListItem 
         holder.binding.root.backgroundTintList =
             ContextCompat.getColorStateList(context, backgroundColor)
         val adapter = CepkaAdapter()
-        val list = mutableListOf<HeykaListItem>()
+        val list = mutableListOf<CepkaListItem>()
         list.add(HomeTaskListItem(HomeTaskListItem.Task(1, "Morning energy", true)))
         list.add(HomeTaskListItem(HomeTaskListItem.Task(2, "Clean teeth", true)))
         list.add(HomeTaskListItem(HomeTaskListItem.Task(3, "Workout", true)))

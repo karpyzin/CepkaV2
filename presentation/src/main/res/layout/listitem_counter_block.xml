@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
@@ -16,7 +15,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/appCompatImageView2"
+            android:id="@+id/counterIcon"
             android:layout_width="62dp"
             android:layout_height="62dp"
             android:layout_marginTop="16dp"
@@ -27,16 +26,16 @@
             app:tint="@color/white" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView"
+            android:id="@+id/counterMinusButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:backgroundTint="@color/transparent"
             app:cardCornerRadius="21dp"
             app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
-            app:layout_constraintEnd_toStartOf="@+id/appCompatImageView2"
-            app:layout_constraintTop_toTopOf="@+id/appCompatImageView2">
+            app:layout_constraintBottom_toBottomOf="@+id/counterIcon"
+            app:layout_constraintEnd_toStartOf="@+id/counterIcon"
+            app:layout_constraintTop_toTopOf="@+id/counterIcon">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="42dp"
@@ -46,15 +45,16 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/counterPlusButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:backgroundTint="@color/transparent"
             app:cardCornerRadius="21dp"
             app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
-            app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
-            app:layout_constraintTop_toTopOf="@+id/appCompatImageView2">
+            app:layout_constraintBottom_toBottomOf="@+id/counterIcon"
+            app:layout_constraintStart_toEndOf="@+id/counterIcon"
+            app:layout_constraintTop_toTopOf="@+id/counterIcon">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="42dp"
@@ -64,18 +64,19 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-black"
+            android:text="4 / 8"
             android:textColor="@color/text_color_bold"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/appCompatImageView2"
-            app:layout_constraintStart_toStartOf="@+id/appCompatImageView2"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2"
-            android:text="4 / 8" />
+            app:layout_constraintEnd_toEndOf="@+id/counterIcon"
+            app:layout_constraintStart_toStartOf="@+id/counterIcon"
+            app:layout_constraintTop_toBottomOf="@+id/counterIcon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
