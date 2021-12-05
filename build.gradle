@@ -10,9 +10,11 @@ buildscript {
         classpath deps.plugins.toolsgradle
         classpath deps.plugins.kotlin
         classpath deps.plugins.hilt
-        classpath deps.plugins.gms
+        classpath "com.google.gms:google-services:4.3.10"
         classpath deps.plugins.crashlytics
         classpath deps.plugins.appdistribution
+
+        classpath 'com.google.gms:google-services:4.3.10'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

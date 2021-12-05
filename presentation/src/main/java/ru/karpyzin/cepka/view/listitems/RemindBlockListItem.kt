@@ -31,7 +31,7 @@ class RemindBlockListItem(private val data: ReminderModel) : CepkaListItem {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = with((holder as ViewHolder).binding) {
         titleTextView.text = data.title
         remindDescriptionTextView.text = data.description
-        timeLeftTextView.text = data.date
+        timeLeftTextView.text = data.date.toString()
 
         doneButton.setDebounceOnClickListener {
             listener?.onDoneClick(data.id)

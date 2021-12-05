@@ -12,5 +12,5 @@ data class ReminderEntity(
     @ColumnInfo
     val description: String? = null,
     @ColumnInfo
-    val date: String,
+    val date: Long,
 )

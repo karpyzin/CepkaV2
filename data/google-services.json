@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "116327240151",
+    "firebase_url": "https://one-danya.firebaseio.com",
+    "project_id": "one-danya",
+    "storage_bucket": "one-danya.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116327240151:android:fd09c3bf0dbbcd6aacbb92",
+        "android_client_info": {
+          "package_name": "one.danya.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116327240151-vmsrcsj9dnndbfb7diaqh2c85gkgsjqj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "one.danya.app",
+            "certificate_hash": "bcafcb9e32958862ae016e8681b8f7ccdf5b6a11"
+          }
+        },
+        {
+          "client_id": "116327240151-n2d9t2r9cq9a6osdmnokni4uju4qrk2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVXLpjlAcDLaMg3YODSzMVKxD1HUYZtyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116327240151-n2d9t2r9cq9a6osdmnokni4uju4qrk2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116327240151:android:0799f8ba3d8ba800acbb92",
+        "android_client_info": {
+          "package_name": "one.danya.auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116327240151-n2d9t2r9cq9a6osdmnokni4uju4qrk2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVXLpjlAcDLaMg3YODSzMVKxD1HUYZtyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116327240151-n2d9t2r9cq9a6osdmnokni4uju4qrk2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116327240151:android:945e7d0ed76c4460acbb92",
+        "android_client_info": {
+          "package_name": "ru.karpyzin.cepka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116327240151-n2d9t2r9cq9a6osdmnokni4uju4qrk2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVXLpjlAcDLaMg3YODSzMVKxD1HUYZtyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116327240151-n2d9t2r9cq9a6osdmnokni4uju4qrk2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

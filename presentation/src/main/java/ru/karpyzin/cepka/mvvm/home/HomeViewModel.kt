@@ -14,12 +14,15 @@ import ru.karpyzin.cepka.view.widgets.InAppMessage
 import ru.karpyzin.domain.hint.HintModel
 import ru.karpyzin.domain.hint.HintUseCase
 import ru.karpyzin.domain.reminders.ReminderModel
+import ru.karpyzin.domain.reminders.RemindersRepository
 import ru.karpyzin.domain.reminders.RemindersUseCase
+import timber.log.Timber
 
 class HomeViewModel @ViewModelInject constructor(
     application: Application,
     private val remindersUseCase: RemindersUseCase,
-    private val hintUseCase: HintUseCase
+    private val hintUseCase: HintUseCase,
+    private val remindersRepository: RemindersRepository
 ) : BaseViewModel(application) {
 
     val inAppMessage = MutableSharedFlow<InAppMessage>()
@@ -35,6 +38,11 @@ class HomeViewModel @ViewModelInject constructor(
         list.addAll(s)
         list.addAll(timelineManager.updateCounters())
         return@combine list
+    }
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+        }
     }
 
     inner class TimelineManager {
@@ -88,12 +96,20 @@ class HomeViewModel @ViewModelInject constructor(
 
         fun updateReminders(list: List<ReminderModel>): List<CepkaListItem> {
             reminders.clear()
+
             reminders.takeIf { list.isNotEmpty() }?.add(HomeSubtitleListItem("Reminders"))
             list.forEach { reminder ->
                 val item = RemindBlockListItem(reminder)
 
                 item.listener = reminderListener
                 reminders.add(item)
+            }
+            viewModelScope.launch(Dispatchers.IO) {
+
+                Timber.e("AOSDJASJDJASLDK")
+                val ee = remindersUseCase.getTest()
+                Timber.e("AOSDJASJDJASLDK $ee")
+                remindersUseCase.uploadTest(list)
             }
             return reminders
         }

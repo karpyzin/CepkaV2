@@ -1,8 +1,10 @@
 package ru.karpyzin.domain.reminders
 
+import java.io.Serializable
+
 data class ReminderModel(
     val id: Int,
     val title: String,
     val description: String? = null,
-    val date: String
-)
+    val date: Long
+): Serializable

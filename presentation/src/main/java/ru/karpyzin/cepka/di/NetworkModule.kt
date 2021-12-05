@@ -2,6 +2,7 @@ package ru.karpyzin.cepka.di
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -89,4 +90,8 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson = Gson()
 }
