@@ -1,4 +1,4 @@
-package ru.karpyzin.data.hint
+package ru.karpyzin.data.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

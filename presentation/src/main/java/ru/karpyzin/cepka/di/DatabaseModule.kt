@@ -2,7 +2,6 @@ package ru.karpyzin.cepka.di
 
 import android.content.Context
 import androidx.room.Room
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,8 +20,4 @@ object DatabaseModule {
         Room.databaseBuilder(context, AppDatabase::class.java, "database")
             .fallbackToDestructiveMigration()
             .build()
-
-    @Provides
-    @Singleton
-    fun provideFireStore(): FirebaseFirestore = FirebaseFirestore.getInstance()
 }

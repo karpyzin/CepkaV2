@@ -1,6 +1,6 @@
 package ru.karpyzin.data.mappers
 
-import ru.karpyzin.data.hint.HintEntity
+import ru.karpyzin.data.db.entity.HintEntity
 import ru.karpyzin.domain.hint.HintModel
 import ru.karpyzin.domain.mapper.Mapper
 import javax.inject.Inject

@@ -1,10 +1,11 @@
-package ru.karpyzin.data.reminders
+package ru.karpyzin.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import ru.karpyzin.data.db.entity.ReminderEntity
 
 @Dao
 interface RemindersDao {

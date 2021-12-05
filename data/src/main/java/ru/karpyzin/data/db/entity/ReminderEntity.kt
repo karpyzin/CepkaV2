@@ -1,4 +1,4 @@
-package ru.karpyzin.data.reminders
+package ru.karpyzin.data.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

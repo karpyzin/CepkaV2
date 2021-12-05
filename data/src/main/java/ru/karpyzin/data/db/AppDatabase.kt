@@ -2,10 +2,10 @@ package ru.karpyzin.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ru.karpyzin.data.hint.HintDao
-import ru.karpyzin.data.hint.HintEntity
-import ru.karpyzin.data.reminders.ReminderEntity
-import ru.karpyzin.data.reminders.RemindersDao
+import ru.karpyzin.data.db.dao.HintDao
+import ru.karpyzin.data.db.entity.HintEntity
+import ru.karpyzin.data.db.entity.ReminderEntity
+import ru.karpyzin.data.db.dao.RemindersDao
 
 @Database(
     entities = [ReminderEntity::class, HintEntity::class],

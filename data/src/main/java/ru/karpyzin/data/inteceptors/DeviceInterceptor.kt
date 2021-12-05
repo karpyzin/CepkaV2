@@ -33,6 +33,7 @@ class DeviceInterceptor @Inject constructor(
             .addHeader("Content-Type", "application/json")
             .addHeader("User-Agent", context.getUserAgent())
             .addHeader("X-Auth-Timestamp", timestamp)
+            .addHeader("Auth", "todom")
             .addHeader("Cache-Control", "public, max-age=$CACHE_AGE")
             .method(originalRequest.method, originalRequest.body)
 

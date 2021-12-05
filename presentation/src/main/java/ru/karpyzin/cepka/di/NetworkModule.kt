@@ -34,8 +34,7 @@ object NetworkModule {
         deviceInterceptor: DeviceInterceptor,
         @ApplicationContext context: Context
     ): OkHttpClient {
-        val httpLoggingLevel =
-            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        val httpLoggingLevel = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
 
         val httpCacheDirectory = File(context.cacheDir, "responses")
         val cacheSize = 10 * 1024 * 1024
