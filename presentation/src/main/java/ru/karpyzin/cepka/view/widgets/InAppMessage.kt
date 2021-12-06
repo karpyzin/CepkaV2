@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import com.google.android.material.snackbar.Snackbar
 import ru.karpyzin.cepka.R
 import ru.karpyzin.cepka.databinding.WidgetInappmessageBinding
@@ -29,7 +30,11 @@ fun Activity.inAppMessage(data: InAppMessage) {
     snackBar.setBackgroundTint(ContextCompat.getColor(applicationContext, R.color.transparent))
     snackBarLayout.elevation = 0f
     snackBarLayout.addView(binding.root)
-    snackBarLayout.setPadding(0, 0, 0, 0)
+    val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+    if (resourceId > 0) {
+        val statusBarHeight = resources.getDimensionPixelSize(resourceId)
+        snackBarLayout.updatePadding(top = statusBarHeight)
+    }
     snackBarLayout.layoutParams = layoutParams
 
     snackBar.animationMode = Snackbar.ANIMATION_MODE_FADE
