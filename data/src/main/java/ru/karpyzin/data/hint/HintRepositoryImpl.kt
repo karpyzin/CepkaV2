@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class HintRepositoryImpl @Inject constructor(appDatabase: AppDatabase, private val hintMapper: HintMapper) : HintRepository {
 
-    private val dao = appDatabase.hintDao()
+    private val dao = appDatabase.hintsDao()
 
     override fun getAll(): Flow<List<HintModel>> {
 

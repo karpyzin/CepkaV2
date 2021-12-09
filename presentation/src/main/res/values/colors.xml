@@ -20,6 +20,7 @@
 
     <color name="text_color_bold">#FFFFFF</color>
     <color name="text_color_hint">#C8C8C8</color>
+    <color name="text_color_positive">#4B9E27</color>
 
     <color name="inappmessage_color">#2C2F60</color>
     <color name="primary_background_color">#FFFFFF</color>

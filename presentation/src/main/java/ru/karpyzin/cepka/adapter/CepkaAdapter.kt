@@ -11,7 +11,7 @@ class CepkaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CepkaListI
     private val mViewTypesPositions = hashMapOf<Int, Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val position: Int = mViewTypesPositions.getOrDefault(viewType, 0)
+        val position: Int = mViewTypesPositions[viewType] ?: 0
         return items[position].getViewHolder(parent, viewType)
     }
 
@@ -40,7 +40,7 @@ class CepkaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CepkaListI
 
     override fun getItemViewType(position: Int): Int {
         val listItem: CepkaListItem = items[position]
-        mViewTypesPositions.putIfAbsent(listItem.getViewType(), position)
+        mViewTypesPositions[listItem.getViewType()] = position
         return listItem.getViewType()
     }
 
@@ -59,6 +59,7 @@ class CepkaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CepkaListI
         private val newList: List<CepkaListItem>,
         private val oldList: List<CepkaListItem>
     ) : DiffUtil.Callback() {
+
         override fun getOldListSize(): Int = oldList.size
 
         override fun getNewListSize(): Int = newList.size

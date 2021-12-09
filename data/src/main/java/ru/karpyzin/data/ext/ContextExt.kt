@@ -8,7 +8,7 @@ import timber.log.Timber
 //region UserAgent
 
 fun Context.getUserAgent(): String {
-    return "Heyka " +
+    return "Cepka " +
             getVersionName() +
             " (Android ${Build.VERSION.RELEASE}" +
             "; Scale/${this.resources.displayMetrics.density})"

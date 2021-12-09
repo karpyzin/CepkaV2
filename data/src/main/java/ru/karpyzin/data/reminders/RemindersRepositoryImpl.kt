@@ -1,6 +1,5 @@
 package ru.karpyzin.data.reminders
 
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.karpyzin.data.db.AppDatabase
@@ -11,13 +10,14 @@ import javax.inject.Inject
 
 class RemindersRepositoryImpl @Inject constructor(
     appDatabase: AppDatabase,
-    private val reminderEntityTransformer: ReminderEntityTransformer
+    private val reminderEntityTransformer: ReminderEntityMapper
 ) : RemindersRepository {
 
     private val remindersDao = appDatabase.remindersDao()
 
     override val reminderModels: List<ReminderModel>
         get() = remindersDao.getAll().map { reminderEntityTransformer.fromEntity(it) }
+
     override val remindersFlow: Flow<List<ReminderModel>>
         get() = remindersDao.getAllFlow().map { list -> list.map { reminderEntityTransformer.fromEntity(it) } }
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="32dp"
+    android:paddingVertical="8dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/subscriptionIcon"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_netflix" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/subscriptionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/text_color_hint"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/subscriptionIcon"
+        app:layout_constraintTop_toTopOf="@+id/subscriptionIcon"
+        tools:text="Yandex" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/subscriptionPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:fontFamily="sans-serif-black"
+        app:layout_constraintStart_toEndOf="@+id/subscriptionIcon"
+        app:layout_constraintTop_toBottomOf="@+id/subscriptionName"
+        android:text="$ 7.2/mo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/subscriptionDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/text_color_positive"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/subscriptionIcon"
+        app:layout_constraintTop_toBottomOf="@+id/subscriptionPrice"
+        android:text="next payment 27 April" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -103,8 +103,8 @@ dependencies {
     kapt deps.room.compiler
     implementation deps.room.ktx
 
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0-alpha07'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.0-alpha07'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0-beta02'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.0-beta02'
 
     //Tests
     androidTestImplementation deps.junit

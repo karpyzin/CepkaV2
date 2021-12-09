@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ru.karpyzin.cepka.view.widgets.CepkaRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/subscriptionsRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_background_color">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:background="@color/primary_background_color"
+    android:clipToPadding="false" />
