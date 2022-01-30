@@ -14,6 +14,7 @@ class HomeHeaderListItem(private val data: HeaderData) : CepkaListItem {
 
     interface Listener {
         fun onNotificationClick()
+        fun onProfileClick()
     }
 
     data class HeaderData(
@@ -35,6 +36,9 @@ class HomeHeaderListItem(private val data: HeaderData) : CepkaListItem {
 
         binding.notificationIndicator.isVisible = data.hasNotifications
         binding.name.text = headerText
+        binding.name.setDebounceOnClickListener {
+            listener?.onProfileClick()
+        }
         binding.notificationButton.setDebounceOnClickListener {
             listener?.onNotificationClick()
         }

@@ -24,7 +24,7 @@ class SubscriptionListItem(private val data: SubscriptionModel) : CepkaListItem 
 
     override fun getId(): Long = data.id.toLong()
 
-    override fun getViewType(): Int = 7
+    override fun getViewType(): Int = 8
 
     override fun getViewHolderHash(): Int {
         return Objects.hash(data.id, data.description, data.name, data.repeatDay, data.currency)

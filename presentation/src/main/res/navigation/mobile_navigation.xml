@@ -20,4 +20,16 @@
         android:id="@+id/navigation_premium"
         android:name="ru.karpyzin.cepka.mvvm.premium.PremiumFragment"
         android:label="PremiumFragment" />
+    <fragment
+        android:id="@+id/navigation_reminder"
+        android:name="ru.karpyzin.cepka.mvvm.reminder.ReminderFragment"
+        android:label="ReminderFragment" />
+    <fragment
+        android:id="@+id/navigation_sign_in"
+        android:name="ru.karpyzin.cepka.mvvm.signin.SignInFragment"
+        android:label="SignInFragment" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="ru.karpyzin.cepka.mvvm.profile.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>

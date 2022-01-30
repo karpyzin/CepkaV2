@@ -34,7 +34,7 @@ ext.versions = [
         retrofit            : '2.9.0',
         okhttp              : '4.9.0',
         glide               : '4.10.0',
-        room                : '2.3.0',
+        room                : '2.4.1',
         webrtc              : '1.0.32006',
         socket              : '1.0.1',
         easyPermissions     : '3.0.0',

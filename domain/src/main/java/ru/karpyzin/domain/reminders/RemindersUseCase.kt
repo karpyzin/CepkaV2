@@ -6,11 +6,11 @@ import javax.inject.Inject
 
 
 interface RemindersUseCase {
-    val reminderModels: List<ReminderModel>
     val remindersFlow: Flow<List<ReminderModel>>
 
     suspend fun add(title: String, description: String?, date: Long)
     suspend fun complete(id: Int)
+    suspend fun snooze(id: Int)
     suspend fun getTest(): List<ReminderModel>
     suspend fun uploadTest(list: List<ReminderModel>)
 }
@@ -20,8 +20,6 @@ class RemindersUseCaseImpl @Inject constructor(
     private val remindersService: RemindersService,
     private val accountService: AccountService
 ) : RemindersUseCase {
-    override val reminderModels: List<ReminderModel>
-        get() = remindersRepository.reminderModels
     override val remindersFlow: Flow<List<ReminderModel>>
         get() = remindersRepository.remindersFlow
 
@@ -31,12 +29,21 @@ class RemindersUseCaseImpl @Inject constructor(
     override suspend fun complete(id: Int) =
         remindersRepository.complete(id)
 
+    override suspend fun snooze(id: Int) {
+        val snoozeTime = 60 * 60 * 1000
+        val currentDate = remindersRepository.getReminder(id)?.date
+
+        if (currentDate != null) {
+            remindersRepository.changeDate(id, currentDate + snoozeTime)
+        }
+    }
+
     override suspend fun getTest(): List<ReminderModel> {
-        return remindersService.loadReminders(accountService.auth("karp123@inbox.ru", "111111").id)
+        return emptyList() //remindersService.loadReminders(accountService.auth("karp123@inbox.ru", "111111").id)
     }
 
     override suspend fun uploadTest(list: List<ReminderModel>) {
-        remindersService.uploadReminders(accountService.auth("karp123@inbox.ru", "111111").id, list)
+        //remindersService.uploadReminders(accountService.auth("karp123@inbox.ru", "111111").id, list)
     }
 
 }

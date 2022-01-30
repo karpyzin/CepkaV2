@@ -11,6 +11,9 @@ import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.base.BaseViewModel
 import ru.karpyzin.cepka.view.listitems.*
 import ru.karpyzin.cepka.view.widgets.InAppMessage
+import ru.karpyzin.domain.account.AccountUseCase
+import ru.karpyzin.domain.counter.CounterModel
+import ru.karpyzin.domain.counter.CountersUseCase
 import ru.karpyzin.domain.hint.HintModel
 import ru.karpyzin.domain.hint.HintUseCase
 import ru.karpyzin.domain.reminders.ReminderModel
@@ -19,32 +22,31 @@ import ru.karpyzin.domain.reminders.RemindersUseCase
 class HomeViewModel @ViewModelInject constructor(
     application: Application,
     hintUseCase: HintUseCase,
-    private val remindersUseCase: RemindersUseCase
+    private val countersUseCase: CountersUseCase,
+    private val remindersUseCase: RemindersUseCase,
+    private val accountUseCase: AccountUseCase
 ) : BaseViewModel(application) {
-
-    val inAppMessage = MutableSharedFlow<InAppMessage>()
 
     private val timelineManager = TimelineManager()
 
     private val remindersFlow = remindersUseCase.remindersFlow.map { timelineManager.updateReminders(it) }
     private val hintsFlow = hintUseCase.hints.map { timelineManager.updateTop(it) }
+    private val countersFlow = countersUseCase.counters.map { timelineManager.updateCounters(it) }
 
-    val itemsFlow = combine(hintsFlow, remindersFlow) { hints, reminders ->
+    val itemsFlow = combine(hintsFlow, remindersFlow, countersFlow) { hints, reminders, counters ->
         val list = mutableListOf<CepkaListItem>()
+
         list.addAll(hints)
         list.addAll(reminders)
-        list.addAll(timelineManager.updateCounters())
-        return@combine list
-    }
+        list.addAll(counters)
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-        }
+        return@combine list
     }
 
     inner class TimelineManager {
         private val reminders = mutableListOf<CepkaListItem>()
         private val topMock = mutableListOf<CepkaListItem>()
+        private val counters = mutableListOf<CepkaListItem>()
 
         //region Listeners
 
@@ -67,8 +69,8 @@ class HomeViewModel @ViewModelInject constructor(
 
             override fun onDismissClick(reminderId: Int) {
                 viewModelScope.launch(Dispatchers.IO) {
-                    remindersUseCase.complete(reminderId)
-                    inAppMessage.emit(InAppMessage("Готово", "Перенес напоминание на 15 минут ⏳"))
+                    remindersUseCase.snooze(reminderId)
+                    inAppMessage.emit(InAppMessage("Готово", "Перенес напоминание на 1 час ⏳"))
                 }
             }
 
@@ -80,11 +82,43 @@ class HomeViewModel @ViewModelInject constructor(
 
         private val counterListener = object : CounterBlockListItem.Listener {
             override fun onPlus(counterId: Int) {
-
+                viewModelScope.launch(Dispatchers.IO) {
+                    countersUseCase.increaseCount(counterId)
+                }
             }
 
             override fun onMinus(counterId: Int) {
+                viewModelScope.launch(Dispatchers.IO) {
+                    countersUseCase.decreaseCount(counterId)
+                }
+            }
 
+        }
+
+        private val addBlockListener = object : AddBlockListItem.Listener {
+            override fun onAddTaskClick() {
+
+            }
+
+            override fun onAddReminderClick() {
+                viewModelScope.launch {
+                    openScreen.emit(R.id.navigation_reminder)
+                }
+            }
+
+        }
+
+        private val headerListener = object : HomeHeaderListItem.Listener {
+            override fun onNotificationClick() {
+                //viewModelScope.launch { openScreen.emit(R.id.navigation_sign_in) }
+            }
+
+            override fun onProfileClick() {
+                viewModelScope.launch {
+                    val screen = if (accountUseCase.isAuthorized()) R.id.navigation_profile else R.id.navigation_sign_in
+
+                    openScreen.emit(screen)
+                }
             }
 
         }
@@ -94,6 +128,13 @@ class HomeViewModel @ViewModelInject constructor(
         fun updateReminders(list: List<ReminderModel>): List<CepkaListItem> {
             reminders.clear()
 
+            //region AddBlocks
+            reminders.add(AddBlockListItem().apply {
+                listener = addBlockListener
+            })
+            //endregion
+
+            //region Reminders
             reminders.takeIf { list.isNotEmpty() }?.add(HomeSubtitleListItem("Reminders"))
             list.forEach { reminder ->
                 val item = RemindBlockListItem(reminder)
@@ -101,20 +142,28 @@ class HomeViewModel @ViewModelInject constructor(
                 item.listener = reminderListener
                 reminders.add(item)
             }
+            //endregion
             return reminders
         }
 
         fun updateTop(hints: List<HintModel>): List<CepkaListItem> {
             topMock.clear()
-            topMock.add(HomeHeaderListItem(HomeHeaderListItem.HeaderData("Игорь", true)))
+            topMock.add(HomeHeaderListItem(HomeHeaderListItem.HeaderData("Игорь", true)).apply {
+                listener = headerListener
+            })
             topMock.add(HintsBlockListItem(hints, hintListener))
             return topMock
         }
 
-        fun updateCounters(): List<CepkaListItem> {
-            val item = CounterBlockListItem(CounterBlockListItem.CounterData(1, 1, 5, R.drawable.ic_cup))
-            item.listener = counterListener
-            return listOf(item)
+        fun updateCounters(list: List<CounterModel>): List<CepkaListItem> {
+            counters.clear()
+            list.forEach {
+                counters.add(CounterBlockListItem(it).apply {
+                    listener = counterListener
+                })
+            }
+
+            return counters
         }
     }
 

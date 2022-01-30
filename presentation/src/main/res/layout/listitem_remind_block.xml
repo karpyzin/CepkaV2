@@ -28,26 +28,32 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:ellipsize="end"
             android:textColor="@color/text_color_bold"
             android:textSize="20sp"
             app:fontFamily="sans-serif-black"
+            app:layout_constraintEnd_toStartOf="@+id/remindMoreButton"
             app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Buy bread" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/remindDescriptionTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:textColor="@color/text_color_hint"
+            android:textColorLink="@color/blue_light"
             android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/titleTextView"
             app:layout_constraintStart_toStartOf="@+id/titleTextView"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-            tools:text="Buy bread" />
+            tools:text="vk.com" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/remindMoreButton"
@@ -112,7 +118,7 @@
                 android:drawableStart="@drawable/ic_close"
                 android:drawablePadding="8dp"
                 android:drawableTint="@color/white"
-                android:text="Cancel"
+                android:text="Snooze"
                 android:textColor="@color/text_color_bold" />
         </com.google.android.material.card.MaterialCardView>
 

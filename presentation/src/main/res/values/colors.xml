@@ -19,6 +19,7 @@
     <color name="red2">#FFA0A0</color>
 
     <color name="text_color_bold">#FFFFFF</color>
+    <color name="text_color_input">#303030</color>
     <color name="text_color_hint">#C8C8C8</color>
     <color name="text_color_positive">#4B9E27</color>
 

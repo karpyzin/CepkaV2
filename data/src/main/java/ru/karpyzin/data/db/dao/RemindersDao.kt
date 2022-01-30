@@ -9,15 +9,21 @@ import ru.karpyzin.data.db.entity.ReminderEntity
 
 @Dao
 interface RemindersDao {
-    @Query("SELECT * FROM ReminderEntity")
+    @Query("SELECT * FROM ReminderEntity ORDER BY date")
     fun getAllFlow(): Flow<List<ReminderEntity>>
 
     @Query("SELECT * FROM ReminderEntity")
-    fun getAll(): List<ReminderEntity>
+    suspend fun getAll(): List<ReminderEntity>
+
+    @Query("SELECT * FROM ReminderEntity WHERE id = :id")
+    suspend fun get(id: Int): ReminderEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addReminder(reminder: ReminderEntity)
+    suspend fun addReminder(reminder: ReminderEntity)
+
+    @Query("UPDATE ReminderEntity SET date = :newDate WHERE id = :id")
+    suspend fun changeDate(id: Int, newDate: Long)
 
     @Query("DELETE FROM ReminderEntity WHERE id = :id")
-    fun delete(id: Int)
+    suspend fun delete(id: Int)
 }
