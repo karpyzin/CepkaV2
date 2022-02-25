@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import ru.karpyzin.cepka.base.BaseViewModel
+import ru.karpyzin.cepka.view.widgets.InAppMessage
 import ru.karpyzin.domain.reminders.RemindersUseCase
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,7 +21,7 @@ class ReminderViewModel @ViewModelInject constructor(
     val reminderFlow = MutableStateFlow(Reminder("", "", "", ""))
 
     private var date = CalendarDate(0, 0, 0, 0, 0, 0)
-    private var title: String = ""
+    private var title: String? = null
     private var description: String? = null
     private val ct = Calendar.getInstance()
 
@@ -52,7 +53,7 @@ class ReminderViewModel @ViewModelInject constructor(
         updateTime()
     }
 
-    fun changeTitle(data: String) {
+    fun changeTitle(data: String?) {
         title = data
     }
 
@@ -61,6 +62,13 @@ class ReminderViewModel @ViewModelInject constructor(
     }
 
     fun createReminder() = viewModelScope.launch(Dispatchers.IO) {
+        val title = this@ReminderViewModel.title
+
+        if (title.isNullOrEmpty()) {
+            inAppMessage.emit(InAppMessage(summary = "Заполните информацию!"))
+            return@launch
+        }
+
         remindersUseCase.add(title, description, date.millis)
         backClick.emit(true)
     }
@@ -87,7 +95,7 @@ class ReminderViewModel @ViewModelInject constructor(
     )
 
     data class Reminder(
-        val title: String,
+        val title: String?,
         val description: String?,
         val time: String,
         val date: String,

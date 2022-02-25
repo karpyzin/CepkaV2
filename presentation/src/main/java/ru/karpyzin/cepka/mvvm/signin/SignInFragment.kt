@@ -30,6 +30,11 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
         binding.signInEmail.requestFocus()
 
+        binding.toolbar.setTitle("Account")
+        binding.toolbar.leftListener = {
+            findNavController().popBackStack()
+        }
+
         binding.signUpButton.setDebounceOnClickListener {
             isSignUp = !isSignUp
             binding.signInTitle.text = signInText(false)

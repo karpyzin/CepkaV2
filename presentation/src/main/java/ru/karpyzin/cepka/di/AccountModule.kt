@@ -4,7 +4,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import ru.karpyzin.data.account.AccountRepositoryImpl
 import ru.karpyzin.data.account.AccountServiceImpl
+import ru.karpyzin.domain.account.AccountRepository
 import ru.karpyzin.domain.account.AccountService
 import ru.karpyzin.domain.account.AccountUseCase
 import ru.karpyzin.domain.account.AccountUseCaseImpl
@@ -21,5 +23,8 @@ object AccountModule {
 
         @Binds
         abstract fun provideAccountService(arg: AccountServiceImpl): AccountService
+
+        @Binds
+        abstract fun provideAccountRepository(arg: AccountRepositoryImpl): AccountRepository
     }
 }

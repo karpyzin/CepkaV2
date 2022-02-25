@@ -6,5 +6,6 @@ data class ReminderModel(
     val id: Int,
     val title: String,
     val description: String? = null,
-    val date: Long
+    val date: Long,
+    val isArchived: Boolean
 ): Serializable

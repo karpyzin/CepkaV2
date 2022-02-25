@@ -17,6 +17,7 @@ import ru.karpyzin.cepka.ext.collectAndRepeatWithViewLifecycle
 import ru.karpyzin.cepka.ext.collectWhenCreated
 import ru.karpyzin.cepka.ext.setDebounceOnClickListener
 import ru.karpyzin.cepka.view.viewBinding
+import ru.karpyzin.cepka.view.widgets.inAppMessage
 
 class ReminderFragment : BaseFragment(R.layout.fragment_reminder), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -35,19 +36,6 @@ class ReminderFragment : BaseFragment(R.layout.fragment_reminder), DatePickerDia
 
         binding.reminderTitleEditText.requestFocus()
 
-        viewModel.reminderFlow.collectWhenCreated(lifecycleScope) {
-            binding.dateTextView.text = it.date
-            binding.timeTextView.text = it.time
-            binding.reminderTitleEditText.setText(it.title)
-            binding.reminderDescriptionEditText.setText(it.description)
-            timePicker?.updateTime(it.calendar?.hour ?: 0, it.calendar?.minute ?: 0)
-            datePicker?.updateDate(it.calendar?.year ?: 0, it.calendar?.month ?: 0, it.calendar?.day ?: 0)
-        }
-
-        viewModel.backClick.collectAndRepeatWithViewLifecycle(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-
         binding.timeTextView.setDebounceOnClickListener {
             timePicker?.show()
         }
@@ -61,7 +49,7 @@ class ReminderFragment : BaseFragment(R.layout.fragment_reminder), DatePickerDia
         }
 
         binding.reminderTitleEditText.addTextChangedListener {
-            viewModel.changeTitle(it?.toString() ?: "")
+            viewModel.changeTitle(it?.toString())
         }
 
         binding.reminderDescriptionEditText.addTextChangedListener {
@@ -72,6 +60,23 @@ class ReminderFragment : BaseFragment(R.layout.fragment_reminder), DatePickerDia
             if (binding.reminderTitleEditText.text != null) {
                 viewModel.createReminder()
             }
+        }
+
+        viewModel.reminderFlow.collectWhenCreated(lifecycleScope) {
+            binding.dateTextView.text = it.date
+            binding.timeTextView.text = it.time
+            binding.reminderTitleEditText.setText(it.title)
+            binding.reminderDescriptionEditText.setText(it.description)
+            timePicker?.updateTime(it.calendar?.hour ?: 0, it.calendar?.minute ?: 0)
+            datePicker?.updateDate(it.calendar?.year ?: 0, it.calendar?.month ?: 0, it.calendar?.day ?: 0)
+        }
+
+        viewModel.backClick.collectAndRepeatWithViewLifecycle(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
+
+        viewModel.inAppMessage.collectWhenCreated(lifecycleScope) {
+            requireActivity().inAppMessage(it)
         }
     }
 

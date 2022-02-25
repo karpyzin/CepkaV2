@@ -1,13 +1,11 @@
 package ru.karpyzin.data.account
 
 import com.google.android.gms.tasks.Tasks
-import com.google.firebase.FirebaseException
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import ru.karpyzin.data.error.CepkaException.Companion.ERROR_WHILE_REQUEST
 import ru.karpyzin.domain.account.AccountModel
 import ru.karpyzin.domain.account.AccountService
-import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 
 class AccountServiceImpl @Inject constructor() : AccountService {
@@ -17,7 +15,7 @@ class AccountServiceImpl @Inject constructor() : AccountService {
         val accountData = Tasks.await(fa.createUserWithEmailAndPassword(email, password)).user
 
         if (accountData != null) {
-            return AccountModel(accountData.uid, accountData.displayName, accountData.photoUrl?.toString())
+            return AccountModel(accountData.uid, accountData.displayName, accountData.photoUrl?.toString(), 0) //TODO mock
         } else {
             throw Exception(ERROR_WHILE_REQUEST)
         }
@@ -28,9 +26,21 @@ class AccountServiceImpl @Inject constructor() : AccountService {
         val user = Tasks.await(fa.signInWithEmailAndPassword(email, password)).user
 
         return if (user != null) {
-            AccountModel(user.uid, user.displayName, user.photoUrl?.toString())
+            AccountModel(user.uid, user.displayName, user.photoUrl?.toString(), 0) //TODO mock
         } else {
             throw Exception(ERROR_WHILE_REQUEST)
+        }
+    }
+
+    override suspend fun updateName(name: String): Boolean {
+        val changes = UserProfileChangeRequest.Builder().setDisplayName(name).build()
+        val task = FirebaseAuth.getInstance().currentUser?.updateProfile(changes) ?: return false
+
+        return try {
+            Tasks.await(task)
+            true
+        } catch (e: Throwable) {
+            false
         }
     }
 

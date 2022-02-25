@@ -11,6 +11,7 @@ import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.base.BaseViewModel
 import ru.karpyzin.cepka.view.listitems.*
 import ru.karpyzin.cepka.view.widgets.InAppMessage
+import ru.karpyzin.domain.account.AccountModel
 import ru.karpyzin.domain.account.AccountUseCase
 import ru.karpyzin.domain.counter.CounterModel
 import ru.karpyzin.domain.counter.CountersUseCase
@@ -30,12 +31,14 @@ class HomeViewModel @ViewModelInject constructor(
     private val timelineManager = TimelineManager()
 
     private val remindersFlow = remindersUseCase.remindersFlow.map { timelineManager.updateReminders(it) }
-    private val hintsFlow = hintUseCase.hints.map { timelineManager.updateTop(it) }
+    private val hintsFlow = hintUseCase.hints.map { timelineManager.updateHints(it) }
     private val countersFlow = countersUseCase.counters.map { timelineManager.updateCounters(it) }
+    private val accountFlow = accountUseCase.flow.map { timelineManager.updateTop(it) }
 
-    val itemsFlow = combine(hintsFlow, remindersFlow, countersFlow) { hints, reminders, counters ->
+    val itemsFlow = combine(accountFlow, hintsFlow, remindersFlow, countersFlow) { accountFlow, hints, reminders, counters ->
         val list = mutableListOf<CepkaListItem>()
 
+        list.add(accountFlow)
         list.addAll(hints)
         list.addAll(reminders)
         list.addAll(counters)
@@ -45,7 +48,6 @@ class HomeViewModel @ViewModelInject constructor(
 
     inner class TimelineManager {
         private val reminders = mutableListOf<CepkaListItem>()
-        private val topMock = mutableListOf<CepkaListItem>()
         private val counters = mutableListOf<CepkaListItem>()
 
         //region Listeners
@@ -146,13 +148,16 @@ class HomeViewModel @ViewModelInject constructor(
             return reminders
         }
 
-        fun updateTop(hints: List<HintModel>): List<CepkaListItem> {
-            topMock.clear()
-            topMock.add(HomeHeaderListItem(HomeHeaderListItem.HeaderData("Игорь", true)).apply {
+        fun updateTop(account: AccountModel?): CepkaListItem {
+            return HomeHeaderListItem(account).apply {
                 listener = headerListener
-            })
-            topMock.add(HintsBlockListItem(hints, hintListener))
-            return topMock
+            }
+        }
+
+        fun updateHints(hints: List<HintModel>): List<CepkaListItem> {
+            return hints.map {
+                HintsBlockListItem(hints, hintListener)
+            }
         }
 
         fun updateCounters(list: List<CounterModel>): List<CepkaListItem> {

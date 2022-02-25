@@ -31,7 +31,7 @@ class RemindersRepositoryImpl @Inject constructor(
     }
 
     override suspend fun complete(id: Int) {
-        remindersDao.delete(id)
+        remindersDao.complete(id)
     }
 
     override suspend fun getTestData() {

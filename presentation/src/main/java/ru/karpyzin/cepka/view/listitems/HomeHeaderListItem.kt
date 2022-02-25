@@ -9,32 +9,31 @@ import ru.karpyzin.cepka.adapter.BaseViewHolder
 import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.databinding.ListitemHomeHeaderBinding
 import ru.karpyzin.cepka.ext.setDebounceOnClickListener
+import ru.karpyzin.domain.account.AccountModel
+import java.util.*
 
-class HomeHeaderListItem(private val data: HeaderData) : CepkaListItem {
+class HomeHeaderListItem(private val data: AccountModel?) : CepkaListItem {
 
     interface Listener {
         fun onNotificationClick()
         fun onProfileClick()
     }
 
-    data class HeaderData(
-        val name: String?,
-        val hasNotifications: Boolean
-    )
-
     var listener: Listener? = null
 
     override fun getViewType(): Int = 4
 
+    override fun getViewHolderHash(): Int = Objects.hash(data?.name, data?.notificationsCount)
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = with((holder as ViewHolder)) {
         val context = binding.root.context
-        val headerText = if (data.name != null) {
+        val headerText = if (data?.name != null) {
             context.getString(R.string.header_username, data.name)
         } else {
             context.getString(R.string.header_username_default)
         }
 
-        binding.notificationIndicator.isVisible = data.hasNotifications
+        binding.notificationIndicator.isVisible = data?.notificationsCount ?: 0 > 0
         binding.name.text = headerText
         binding.name.setDebounceOnClickListener {
             listener?.onProfileClick()

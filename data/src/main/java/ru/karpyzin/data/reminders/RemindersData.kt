@@ -7,5 +7,6 @@ data class ReminderItemData(
     val id: Int,
     val title: String,
     val description: String? = null,
-    val date: Long
+    val date: Long,
+    val isArchived: Boolean
 ) : Serializable

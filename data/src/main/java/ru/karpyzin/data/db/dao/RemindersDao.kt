@@ -9,7 +9,7 @@ import ru.karpyzin.data.db.entity.ReminderEntity
 
 @Dao
 interface RemindersDao {
-    @Query("SELECT * FROM ReminderEntity ORDER BY date")
+    @Query("SELECT * FROM ReminderEntity WHERE isArchived = 0 ORDER BY date")
     fun getAllFlow(): Flow<List<ReminderEntity>>
 
     @Query("SELECT * FROM ReminderEntity")
@@ -23,6 +23,9 @@ interface RemindersDao {
 
     @Query("UPDATE ReminderEntity SET date = :newDate WHERE id = :id")
     suspend fun changeDate(id: Int, newDate: Long)
+
+    @Query("UPDATE ReminderEntity SET isArchived = 1 WHERE id = :id")
+    suspend fun complete(id: Int)
 
     @Query("DELETE FROM ReminderEntity WHERE id = :id")
     suspend fun delete(id: Int)

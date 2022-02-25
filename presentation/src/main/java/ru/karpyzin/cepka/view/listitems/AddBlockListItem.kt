@@ -25,6 +25,8 @@ class AddBlockListItem : CepkaListItem {
 
     override fun getViewType(): Int = 10
 
+    override fun getViewHolderHash(): Int = 10
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = with((holder as ViewHolder).binding) {
         addReminderButton.setDebounceOnClickListener {
             listener?.onAddReminderClick()

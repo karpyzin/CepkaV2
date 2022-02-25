@@ -13,4 +13,6 @@ data class ReminderEntity(
     val description: String? = null,
     @ColumnInfo
     val date: Long,
+    @ColumnInfo
+    val isArchived: Boolean = false,
 )
