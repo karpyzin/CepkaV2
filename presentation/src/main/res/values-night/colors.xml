@@ -8,26 +8,26 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="accent_blue">#007EDF</color>
+    <color name="accent_blue">#4385B6</color>
     <color name="accent_blue_light">#D2DDE4</color>
     <color name="accent_blue_dark">#00589C</color>
     <color name="accent_green">#58BF4C</color>
     <color name="accent_orange">#9D8047</color>
-    <color name="accent_red">#FF6868</color>
+    <color name="accent_red">#C36363</color>
     <color name="transparent">#00FFFFFF</color>
-    <color name="accent_purple_dark">#474c9d</color>
+    <color name="accent_purple_dark">#595FB3</color>
     <color name="accent_red2">#FFA0A0</color>
 
     <color name="text_color_bold">#FFFFFF</color>
     <color name="text_color_h1">#D3D3D3</color>
-    <color name="text_color_input">#303030</color>
+    <color name="text_color_input">#BEBEBE</color>
     <color name="text_color_hint">#C8C8C8</color>
     <color name="text_color_positive">#4B9E27</color>
 
     <color name="inappmessage_color">#2C2F60</color>
-    <color name="primary_background_color">#FFFFFF</color>
-    <color name="secondary_background_color">@color/white</color>
-    <color name="reminder_background">@color/accent_purple_dark</color>
-    <color name="hint_background">@color/accent_blue</color>
-    <color name="counter_background">@color/accent_red</color>
+    <color name="primary_background_color">#171717</color>
+    <color name="secondary_background_color">#272727</color>
+    <color name="reminder_background">@color/secondary_background_color</color>
+    <color name="hint_background">@color/secondary_background_color</color>
+    <color name="counter_background">@color/secondary_background_color</color>
 </resources>

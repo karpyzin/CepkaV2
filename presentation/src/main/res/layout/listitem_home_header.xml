@@ -13,7 +13,7 @@
         android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color_bold"
         android:textSize="24sp"
         app:fontFamily="sans-serif-black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,7 +40,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             app:srcCompat="@drawable/ic_reminder"
-            app:tint="@color/blue" />
+            app:tint="@color/accent_blue" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -48,7 +48,7 @@
         android:layout_width="8dp"
         android:layout_height="8dp"
         android:visibility="invisible"
-        app:cardBackgroundColor="@color/red"
+        app:cardBackgroundColor="@color/accent_red"
         app:cardCornerRadius="4dp"
         app:layout_constraintEnd_toEndOf="@+id/notificationButton"
         app:layout_constraintTop_toTopOf="@+id/notificationButton">

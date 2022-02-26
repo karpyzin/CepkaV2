@@ -1,7 +1,6 @@
 package ru.karpyzin.cepka.di
 
 import android.content.Context
-import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,8 +15,5 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase =
-        Room.databaseBuilder(context, AppDatabase::class.java, "database")
-            .fallbackToDestructiveMigration()
-            .build()
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase = AppDatabase.create(context)
 }

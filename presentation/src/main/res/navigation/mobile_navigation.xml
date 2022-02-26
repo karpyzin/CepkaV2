@@ -20,6 +20,12 @@
         android:id="@+id/navigation_premium"
         android:name="ru.karpyzin.cepka.mvvm.premium.PremiumFragment"
         android:label="PremiumFragment" />
+
+    <fragment
+        android:id="@+id/navigation_hint"
+        android:name="ru.karpyzin.cepka.mvvm.hint.HintFragment"
+        android:label="HintFragment"/>
+
     <fragment
         android:id="@+id/navigation_reminder"
         android:name="ru.karpyzin.cepka.mvvm.reminder.ReminderFragment"

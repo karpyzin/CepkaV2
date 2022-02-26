@@ -11,14 +11,14 @@ import ru.karpyzin.cepka.databinding.ListitemHintsBinding
 import ru.karpyzin.domain.hint.HintModel
 import java.util.*
 
-class HintsBlockListItem(private val data: List<HintModel>, val listener: HintListItem.Listener) : CepkaListItem {
+class HintsBlockListItem(private val data: List<HintModel>, private val listener: HintListItem.Listener) : CepkaListItem {
 
     private val adapter by lazy { CepkaAdapter() }
 
     override fun getViewType(): Int = 3
 
     override fun getViewHolderHash(): Int {
-        return Objects.hash(data)
+        return Objects.hash(3)
     }
 
     override fun getId(): Long = data.hashCode().toLong()

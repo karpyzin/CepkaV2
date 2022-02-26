@@ -8,7 +8,10 @@ import ru.karpyzin.domain.hint.HintModel
 import ru.karpyzin.domain.hint.HintRepository
 import javax.inject.Inject
 
-class HintRepositoryImpl @Inject constructor(appDatabase: AppDatabase, private val hintMapper: HintMapper) : HintRepository {
+class HintRepositoryImpl @Inject constructor(
+    appDatabase: AppDatabase,
+    private val hintMapper: HintMapper
+) : HintRepository {
 
     private val dao = appDatabase.hintsDao()
 
@@ -20,5 +23,19 @@ class HintRepositoryImpl @Inject constructor(appDatabase: AppDatabase, private v
         list.add(HintModel(0, "Что ты мне сделаешь?!", "Как прошел твой день?"))*/
 
         return dao.getAllFlow().map { hintMapper.convertList(it) }
+    }
+
+    override suspend fun get(id: Int): HintModel? {
+        return dao.get(id)?.let { hintMapper.convert(it) }
+    }
+
+    override suspend fun read(id: Int) {
+        if (dao.get(id)?.singleReading == true) {
+            dao.delete(id)
+        }
+    }
+
+    override suspend fun addHints(hints: List<HintModel>) {
+        dao.addHints(hintMapper.revertList(hints))
     }
 }

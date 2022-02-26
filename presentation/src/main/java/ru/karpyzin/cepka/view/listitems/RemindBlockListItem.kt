@@ -35,7 +35,8 @@ class RemindBlockListItem(private val data: ReminderModel) : CepkaListItem {
         remindDescriptionTextView.text = data.description
         val minutesToLeft = (data.date - System.currentTimeMillis()) / (60 * 1000)
         val time = when {
-            DateUtils.isToday(data.date) && minutesToLeft < 60 -> "In $minutesToLeft minutes"
+            minutesToLeft < 0 -> "⏰ ${minutesToLeft * (-1)} minutes ago"
+            DateUtils.isToday(data.date) && minutesToLeft < 60 && minutesToLeft > 0 -> "In $minutesToLeft minutes"
             DateUtils.isToday(data.date) -> "today at ${SimpleDateFormat("hh:mm", Locale.getDefault()).format(data.date)}"
             else -> SimpleDateFormat("dd MMM", Locale.getDefault()).format(data.date)
         }

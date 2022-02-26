@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     android:layout_marginTop="16dp"
-    android:textColor="@color/black"
+    android:textColor="@color/text_color_bold"
     android:textSize="28sp"
     app:fontFamily="sans-serif-black"
     tools:text="Today`s plans" />

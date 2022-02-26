@@ -13,11 +13,17 @@ interface HintDao {
     fun getAllFlow(): Flow<List<HintEntity>>
 
     @Query("SELECT * FROM HintEntity")
-    fun getAll(): List<HintEntity>
+    suspend fun getAll(): List<HintEntity>
+
+    @Query("SELECT * FROM HintEntity WHERE id = :id")
+    suspend fun get(id: Int): HintEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addReminder(reminder: HintEntity)
+    suspend fun addHint(hint: HintEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addHints(hints: List<HintEntity>)
 
     @Query("DELETE FROM HintEntity WHERE id = :id")
-    fun delete(id: Int)
+    suspend fun delete(id: Int)
 }

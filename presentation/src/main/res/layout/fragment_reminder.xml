@@ -55,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reminderDescriptionEditText"
         app:srcCompat="@drawable/ic_calendar"
-        app:tint="@color/blue_dark" />
+        app:tint="@color/accent_blue_dark" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/dateTextView"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="at"
-        android:textColor="@color/blue"
+        android:textColor="@color/accent_blue"
         app:fontFamily="sans-serif-black"
         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
         app:layout_constraintStart_toEndOf="@+id/dateTextView" />
@@ -99,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/purple_dark"
+        app:cardBackgroundColor="@color/accent_purple_dark"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"

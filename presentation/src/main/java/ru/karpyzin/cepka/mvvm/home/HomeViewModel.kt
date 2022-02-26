@@ -19,19 +19,21 @@ import ru.karpyzin.domain.hint.HintModel
 import ru.karpyzin.domain.hint.HintUseCase
 import ru.karpyzin.domain.reminders.ReminderModel
 import ru.karpyzin.domain.reminders.RemindersUseCase
+import ru.karpyzin.domain.settings.SettingsUseCase
 
 class HomeViewModel @ViewModelInject constructor(
     application: Application,
-    hintUseCase: HintUseCase,
+    private val hintsUseCase: HintUseCase,
     private val countersUseCase: CountersUseCase,
     private val remindersUseCase: RemindersUseCase,
-    private val accountUseCase: AccountUseCase
+    private val accountUseCase: AccountUseCase,
+    private val settingsUseCase: SettingsUseCase
 ) : BaseViewModel(application) {
 
     private val timelineManager = TimelineManager()
 
     private val remindersFlow = remindersUseCase.remindersFlow.map { timelineManager.updateReminders(it) }
-    private val hintsFlow = hintUseCase.hints.map { timelineManager.updateHints(it) }
+    private val hintsFlow = hintsUseCase.hints.map { timelineManager.updateHints(it) }
     private val countersFlow = countersUseCase.counters.map { timelineManager.updateCounters(it) }
     private val accountFlow = accountUseCase.flow.map { timelineManager.updateTop(it) }
 
@@ -39,11 +41,20 @@ class HomeViewModel @ViewModelInject constructor(
         val list = mutableListOf<CepkaListItem>()
 
         list.add(accountFlow)
-        list.addAll(hints)
+        list.add(hints)
         list.addAll(reminders)
         list.addAll(counters)
 
         return@combine list
+    }
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (settingsUseCase.get()?.isFirstRun == true) {
+                hintsUseCase.createBaseHints()
+                settingsUseCase.firstTimeRan()
+            }
+        }
     }
 
     inner class TimelineManager {
@@ -55,7 +66,7 @@ class HomeViewModel @ViewModelInject constructor(
         private val hintListener = object : HintListItem.Listener {
             override fun onClick(hintId: Int) {
                 viewModelScope.launch {
-                    openScreen.emit(R.id.navigation_premium)
+                    openScreen.emit(R.id.navigation_hint)
                 }
             }
 
@@ -154,10 +165,8 @@ class HomeViewModel @ViewModelInject constructor(
             }
         }
 
-        fun updateHints(hints: List<HintModel>): List<CepkaListItem> {
-            return hints.map {
-                HintsBlockListItem(hints, hintListener)
-            }
+        fun updateHints(hints: List<HintModel>): CepkaListItem {
+            return HintsBlockListItem(hints, hintListener)
         }
 
         fun updateCounters(list: List<CounterModel>): List<CepkaListItem> {

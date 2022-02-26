@@ -7,7 +7,9 @@
     android:layout_marginStart="16dp"
     android:layout_marginTop="16dp"
     android:layout_marginEnd="16dp"
-    android:backgroundTint="@color/purple_dark"
+    app:strokeWidth="2dp"
+    app:strokeColor="@color/accent_purple_dark"
+    android:backgroundTint="@color/reminder_background"
     app:cardCornerRadius="16dp"
     app:cardElevation="8dp">
 
@@ -48,7 +50,7 @@
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:textColor="@color/text_color_hint"
-            android:textColorLink="@color/blue_light"
+            android:textColorLink="@color/accent_blue_light"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/titleTextView"
             app:layout_constraintStart_toStartOf="@+id/titleTextView"
