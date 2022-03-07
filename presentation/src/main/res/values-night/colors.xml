@@ -17,6 +17,7 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="accent_purple_dark">#595FB3</color>
     <color name="accent_red2">#FFA0A0</color>
+    <color name="accent_red3">#A33939</color>
 
     <color name="text_color_bold">#FFFFFF</color>
     <color name="text_color_secondary">#BDBDBD</color>
@@ -31,6 +32,7 @@
     <color name="reminder_background">@color/secondary_background_color</color>
     <color name="hint_background">@color/secondary_background_color</color>
     <color name="counter_background">@color/secondary_background_color</color>
+    <color name="finance_block_background">@color/secondary_background_color</color>
 
     <color name="main_button_stroke">#00FFFFFF</color>
 </resources>

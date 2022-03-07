@@ -28,12 +28,10 @@
         android:text="Create"
         android:textColor="@color/white"
         android:translationY="90dp"
-        app:backgroundTint="@color/accent_purple_dark"
+        app:backgroundTint="@color/accent_red3"
         app:icon="@drawable/ic_add"
         app:iconPadding="12dp"
         app:iconSize="29dp"
-        app:iconTint="@color/white"
-        app:strokeColor="@color/main_button_stroke"
-        app:strokeWidth="0.5dp" />
+        app:iconTint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

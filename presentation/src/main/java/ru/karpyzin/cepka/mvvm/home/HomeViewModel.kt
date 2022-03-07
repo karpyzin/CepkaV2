@@ -37,11 +37,12 @@ class HomeViewModel @ViewModelInject constructor(
     private val countersFlow = countersUseCase.counters.map { timelineManager.updateCounters(it) }
     private val accountFlow = accountUseCase.flow.map { timelineManager.updateTop(it) }
 
-    val itemsFlow = combine(accountFlow, hintsFlow, remindersFlow, countersFlow) { accountFlow, hints, reminders, counters ->
+    val itemsFlow = combine(accountFlow, hintsFlow, remindersFlow, countersFlow) { account, hints, reminders, counters ->
         val list = mutableListOf<CepkaListItem>()
 
-        list.add(accountFlow)
+        list.add(account)
         list.add(hints)
+        list.addAll(timelineManager.updateFinances())
         list.addAll(reminders)
         list.addAll(counters)
 
@@ -165,6 +166,15 @@ class HomeViewModel @ViewModelInject constructor(
             }
 
             return counters
+        }
+
+        fun updateFinances(): List<CepkaListItem> {
+            val list = mutableListOf<CepkaListItem>()
+
+            list.add(HomeSubtitleListItem("Finances"))
+            list.add(FinanceBlockListItem())
+
+            return list
         }
     }
 
