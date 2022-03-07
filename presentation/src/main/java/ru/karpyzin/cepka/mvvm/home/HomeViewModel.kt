@@ -114,19 +114,6 @@ class HomeViewModel @ViewModelInject constructor(
 
         }
 
-        private val addBlockListener = object : AddBlockListItem.Listener {
-            override fun onAddTaskClick() {
-
-            }
-
-            override fun onAddReminderClick() {
-                viewModelScope.launch {
-                    openScreen.emit(R.id.navigation_reminder)
-                }
-            }
-
-        }
-
         private val headerListener = object : HomeHeaderListItem.Listener {
             override fun onNotificationClick() {
                 //viewModelScope.launch { openScreen.emit(R.id.navigation_sign_in) }
@@ -146,12 +133,6 @@ class HomeViewModel @ViewModelInject constructor(
 
         fun updateReminders(list: List<ReminderModel>): List<CepkaListItem> {
             reminders.clear()
-
-            //region AddBlocks
-            reminders.add(AddBlockListItem().apply {
-                listener = addBlockListener
-            })
-            //endregion
 
             //region Reminders
             reminders.takeIf { list.isNotEmpty() }?.add(HomeSubtitleListItem("Reminders"))

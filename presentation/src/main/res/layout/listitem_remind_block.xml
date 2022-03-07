@@ -7,11 +7,11 @@
     android:layout_marginStart="16dp"
     android:layout_marginTop="16dp"
     android:layout_marginEnd="16dp"
-    app:strokeWidth="2dp"
-    app:strokeColor="@color/accent_purple_dark"
     android:backgroundTint="@color/reminder_background"
     app:cardCornerRadius="16dp"
-    app:cardElevation="8dp">
+    app:cardElevation="8dp"
+    app:strokeColor="@color/accent_purple_dark"
+    app:strokeWidth="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,13 +28,21 @@
             app:srcCompat="@drawable/ic_reminder"
             app:tint="@color/white" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/emoji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/appCompatImageView"
+            app:layout_constraintTop_toTopOf="@+id/appCompatImageView"
+            tools:text="❤️" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/titleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ellipsize="end"
-            android:textColor="@color/text_color_bold"
+            android:textColor="@color/white"
             android:textSize="20sp"
             app:fontFamily="sans-serif-black"
             app:layout_constraintEnd_toStartOf="@+id/remindMoreButton"
@@ -73,7 +81,7 @@
                 android:layout_height="20dp"
                 android:layout_margin="4dp"
                 app:srcCompat="@drawable/ic_vertical_dots"
-                app:tint="@color/text_color_bold" />
+                app:tint="@color/white" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
@@ -85,7 +93,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="2"
-            android:textColor="@color/text_color_hint"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/remindDescriptionTextView"
             tools:text="In 10 minutes. Veery long text. how do you do? What are you doing? In 10 minutes. Veery long text how do you do? What are you doing?" />
@@ -121,7 +129,7 @@
                 android:drawablePadding="8dp"
                 android:drawableTint="@color/white"
                 android:text="Snooze"
-                android:textColor="@color/text_color_bold" />
+                android:textColor="@color/white" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -147,7 +155,7 @@
                 android:drawablePadding="8dp"
                 android:drawableTint="@color/white"
                 android:text="Done"
-                android:textColor="@color/text_color_bold" />
+                android:textColor="@color/white" />
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

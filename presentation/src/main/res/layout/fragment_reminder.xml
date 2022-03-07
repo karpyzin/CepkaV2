@@ -8,6 +8,12 @@
     android:clickable="true"
     android:focusable="true">
 
+    <ru.karpyzin.cepka.view.widgets.CepkaToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/reminderTitleEditText"
         android:layout_width="0dp"
@@ -25,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/reminderDescriptionEditText"
@@ -62,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color_bold"
         android:textSize="18sp"
         app:fontFamily="sans-serif-black"
         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
@@ -86,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color_bold"
         android:textSize="18sp"
         app:fontFamily="sans-serif-black"
         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
@@ -94,25 +100,14 @@
         app:layout_constraintTop_toTopOf="@+id/appCompatImageView2"
         tools:text="18:00" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/createButton"
-        android:layout_width="wrap_content"
+    <ru.karpyzin.cepka.view.widgets.CepkaRecyclerView
+        android:id="@+id/categories"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/accent_purple_dark"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeTextView">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="4dp"
-            android:text="Create"
-            android:textColor="@color/text_color_bold"
-            android:textSize="18sp" />
-    </com.google.android.material.card.MaterialCardView>
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:paddingEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/timeTextView"
+        tools:listitem="@layout/listitem_category" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

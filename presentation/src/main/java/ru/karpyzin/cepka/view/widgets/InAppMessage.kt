@@ -44,5 +44,5 @@ fun Activity.inAppMessage(data: InAppMessage) {
 data class InAppMessage(
     val title: String? = null,
     val summary: String?,
-    @ColorRes val summaryColor: Int = R.color.text_color_hint
+    @ColorRes val summaryColor: Int = R.color.text_color_secondary
 )

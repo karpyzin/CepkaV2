@@ -1,7 +1,13 @@
 package ru.karpyzin.cepka.ext
 
+import android.content.Context
 import android.os.SystemClock
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
+
+
+
 
 
 /**
@@ -30,4 +36,13 @@ class SafeClickHandler(private val listener: ((View) -> Unit)) {
 private class DebounceViewClickListener(clickListener: ((View) -> Unit)) : View.OnClickListener {
     private val clickHandler = SafeClickHandler(clickListener)
     override fun onClick(v: View) = clickHandler.handleClick(v)
+}
+
+/**
+ * Keyboard
+ */
+
+fun View.showKeyboard() {
+    val imm: InputMethodManager? = getSystemService(context, InputMethodManager::class.java)
+    imm?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }

@@ -18,8 +18,8 @@ class RemindersRepositoryImpl @Inject constructor(
     override val remindersFlow: Flow<List<ReminderModel>>
         get() = remindersDao.getAllFlow().map { list -> list.map { reminderEntityTransformer.fromEntity(it) } }
 
-    override suspend fun add(title: String, description: String?, date: Long) {
-        remindersDao.addReminder(ReminderEntity(0, title, description, date))
+    override suspend fun add(title: String, description: String?, date: Long, emoji: String?) {
+        remindersDao.addReminder(ReminderEntity(0, title, description, date, emoji = emoji))
     }
 
     override suspend fun changeDate(id: Int, newDate: Long) {

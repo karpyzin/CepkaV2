@@ -51,6 +51,7 @@ class RemindBlockListItem(private val data: ReminderModel) : CepkaListItem {
         remindMoreButton.setDebounceOnClickListener {
             listener?.onMoreClick(data.id)
         }
+        emoji.text = data.emoji
     }
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =

@@ -13,7 +13,7 @@
         android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/text_color_bold"
+        android:textColor="@color/text_color_h1"
         android:textSize="24sp"
         app:fontFamily="sans-serif-black"
         app:layout_constraintBottom_toBottomOf="parent"

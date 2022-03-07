@@ -18,8 +18,9 @@
     <color name="accent_purple_dark">#474c9d</color>
     <color name="accent_red2">#FFA0A0</color>
 
-    <color name="text_color_bold">#FFFFFF</color>
-    <color name="text_color_h1">#D3D3D3</color>
+    <color name="text_color_bold">#000000</color>
+    <color name="text_color_secondary">#E3E3E3</color>
+    <color name="text_color_h1">#000000</color>
     <color name="text_color_input">#303030</color>
     <color name="text_color_hint">#C8C8C8</color>
     <color name="text_color_positive">#4B9E27</color>

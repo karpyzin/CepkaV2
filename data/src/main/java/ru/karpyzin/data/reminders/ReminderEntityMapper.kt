@@ -7,10 +7,10 @@ import javax.inject.Inject
 
 class ReminderEntityMapper @Inject constructor() : EntityMapper<ReminderEntity, ReminderModel> {
     override fun toEntity(data: ReminderModel): ReminderEntity = with(data) {
-        ReminderEntity(id, title, description, date, isArchived)
+        ReminderEntity(id, title, description, date, isArchived, emoji)
     }
 
     override fun fromEntity(data: ReminderEntity): ReminderModel = with(data) {
-        ReminderModel(id, title, description, date, isArchived)
+        ReminderModel(id, title, description, date, isArchived, emoji)
     }
 }

@@ -5,16 +5,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class ReminderEntity(
+data class CategoryEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo
-    val title: String,
+    val type: String,
     @ColumnInfo
-    val description: String? = null,
+    val name: String,
     @ColumnInfo
-    val date: Long,
-    @ColumnInfo
-    val isArchived: Boolean = false,
-    @ColumnInfo
-    val emoji: String?
+    val icon: String
 )

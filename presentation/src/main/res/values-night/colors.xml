@@ -19,12 +19,13 @@
     <color name="accent_red2">#FFA0A0</color>
 
     <color name="text_color_bold">#FFFFFF</color>
+    <color name="text_color_secondary">#BDBDBD</color>
     <color name="text_color_h1">#D3D3D3</color>
     <color name="text_color_input">#BEBEBE</color>
-    <color name="text_color_hint">#C8C8C8</color>
+    <color name="text_color_hint">#787878</color>
     <color name="text_color_positive">#4B9E27</color>
 
-    <color name="inappmessage_color">#2C2F60</color>
+    <color name="inappmessage_color">#3E405E</color>
     <color name="primary_background_color">#171717</color>
     <color name="secondary_background_color">#272727</color>
     <color name="reminder_background">@color/secondary_background_color</color>

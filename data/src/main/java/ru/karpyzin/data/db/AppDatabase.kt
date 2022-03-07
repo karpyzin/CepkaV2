@@ -10,7 +10,15 @@ import ru.karpyzin.data.db.dao.*
 import ru.karpyzin.data.db.entity.*
 
 @Database(
-    entities = [ReminderEntity::class, HintEntity::class, SubscriptionEntity::class, CounterEntity::class, AccountEntity::class, SettingsEntity::class],
+    entities = [
+        ReminderEntity::class,
+        HintEntity::class,
+        SubscriptionEntity::class,
+        CounterEntity::class,
+        AccountEntity::class,
+        SettingsEntity::class,
+        CategoryEntity::class
+    ],
     version = AppDatabase.DATABASE_VERSION
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -36,4 +44,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun counterDao(): CounterDao
     abstract fun accountDao(): AccountDao
     abstract fun settingsDao(): SettingsDao
+    abstract fun categoriesDao(): CategoriesDao
 }

@@ -7,23 +7,30 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/leftIcon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="?attr/selectableItemBackground"
-        android:padding="12dp"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back"
-        app:tint="@color/black" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_margin="12dp"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/text_color_h1" />
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/toolbarText"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color_h1"
         android:textSize="18sp"
         app:fontFamily="sans-serif-black"
         app:layout_constraintEnd_toStartOf="@+id/rightIcon"
@@ -34,8 +41,8 @@
         android:id="@+id/rightIcon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="?attr/selectableItemBackground"
         android:padding="12dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

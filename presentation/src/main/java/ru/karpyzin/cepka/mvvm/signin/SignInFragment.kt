@@ -21,12 +21,15 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
     private var isSignUp: Boolean = false
 
     override val binding by viewBinding(FragmentSignInBinding::bind)
+    override val isMainButtonVisible: Boolean
+        get() = true
+    override val mainButtonIconRes: Int
+        get() = R.drawable.ic_next
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.signInTitle.text = signInText(false)
-        binding.signInButton.text = signInText()
 
         binding.signInEmail.requestFocus()
 
@@ -39,14 +42,6 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
             isSignUp = !isSignUp
             binding.signInTitle.text = signInText(false)
             binding.signUpButton.text = signUpText()
-            binding.signInButton.text = signInText()
-        }
-
-        binding.signInButton.setDebounceOnClickListener {
-            val email = binding.signInEmail.text?.toString() ?: return@setDebounceOnClickListener
-            val pass = binding.signInPassword.text?.toString() ?: return@setDebounceOnClickListener
-
-            viewModel.onAuthClick(email, pass, isSignUp)
         }
 
         viewModel.inAppMessage.collectWhenCreated(lifecycleScope) {
@@ -56,6 +51,13 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
         viewModel.backClick.collectAndRepeatWithViewLifecycle(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
+    }
+
+    override fun onMainButtonClicked() {
+        val email = binding.signInEmail.text?.toString() ?: return
+        val pass = binding.signInPassword.text?.toString() ?: return
+
+        viewModel.onAuthClick(email, pass, isSignUp)
     }
 
     private fun signInText(simple: Boolean = true): String {

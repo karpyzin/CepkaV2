@@ -6,19 +6,32 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.base.BaseViewModel
+import ru.karpyzin.cepka.view.listitems.CategoryListItem
 import ru.karpyzin.cepka.view.widgets.InAppMessage
+import ru.karpyzin.domain.categories.CategoriesUseCase
+import ru.karpyzin.domain.categories.CategoryModel
 import ru.karpyzin.domain.reminders.RemindersUseCase
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ReminderViewModel @ViewModelInject constructor(
     application: Application,
+    categoriesUseCase: CategoriesUseCase,
     private val remindersUseCase: RemindersUseCase
 ) : BaseViewModel(application) {
 
     val reminderFlow = MutableStateFlow(Reminder("", "", "", ""))
+
+    private val selectedCategoryFlow = MutableStateFlow(0)
+    val categoriesFlow = combine(categoriesUseCase.tasks, selectedCategoryFlow) { items, id ->
+        items.map {
+            getCategoryListItem(it, id == it.id)
+        }
+    }
 
     private var date = CalendarDate(0, 0, 0, 0, 0, 0)
     private var title: String? = null
@@ -69,7 +82,7 @@ class ReminderViewModel @ViewModelInject constructor(
             return@launch
         }
 
-        remindersUseCase.add(title, description, date.millis)
+        remindersUseCase.add(title, description, date.millis, selectedCategoryFlow.value)
         backClick.emit(true)
     }
 
@@ -83,6 +96,17 @@ class ReminderViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             reminderFlow.emit(Reminder(title, description, time, date, this@ReminderViewModel.date))
         }
+    }
+
+    private fun getCategoryListItem(data: CategoryModel, isSelected: Boolean): CepkaListItem {
+        val item = CategoryListItem(data, isSelected)
+
+        item.listener = { id ->
+            selectedCategoryFlow.tryEmit(id)
+        }
+
+        return item
+
     }
 
     data class CalendarDate(
