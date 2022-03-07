@@ -18,7 +18,7 @@ ext.versions = [
         androidx            : '1.4.0',
         constraintlayout    : '2.0.4',
         fragment            : '1.4.0',
-        material            : '1.4.0',
+        material            : '1.5.0',
         swiperefreshlayout  : '1.1.0',
 
         //Google

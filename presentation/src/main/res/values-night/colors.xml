@@ -30,4 +30,6 @@
     <color name="reminder_background">@color/secondary_background_color</color>
     <color name="hint_background">@color/secondary_background_color</color>
     <color name="counter_background">@color/secondary_background_color</color>
+
+    <color name="main_button_stroke">#00FFFFFF</color>
 </resources>

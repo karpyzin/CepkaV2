@@ -35,7 +35,7 @@ class HomeHeaderListItem(private val data: AccountModel?) : CepkaListItem {
 
         binding.notificationIndicator.isVisible = data?.notificationsCount ?: 0 > 0
         binding.name.text = headerText
-        binding.name.setDebounceOnClickListener {
+        binding.accountButton.setDebounceOnClickListener {
             listener?.onProfileClick()
         }
         binding.notificationButton.setDebounceOnClickListener {

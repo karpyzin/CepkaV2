@@ -49,6 +49,7 @@ dependencies {
     //Hilt
     implementation deps.hilt.android
     implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
     kapt deps.hilt.compiler
     kapt deps.hilt.androidxCompiler
     implementation deps.hilt.lifecycle

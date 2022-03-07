@@ -11,22 +11,29 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/primary_background_color"
+        android:clickable="true"
+        android:focusable="true"
         app:defaultNavHost="true"
         app:navGraph="@navigation/mobile_navigation" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/mainActionButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="48dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="12dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/layout_bottom_navigation"
-        app:elevation="6dp"
-        app:itemIconTint="@color/bottom_navigation_color"
-        app:itemRippleColor="@color/accent_blue_light"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-        app:menu="@menu/bottom_navigation_bar" />
+        android:paddingVertical="0dp"
+        android:text="Create"
+        android:textColor="@color/white"
+        android:translationY="90dp"
+        app:backgroundTint="@color/accent_purple_dark"
+        app:icon="@drawable/ic_add"
+        app:iconPadding="12dp"
+        app:iconSize="29dp"
+        app:iconTint="@color/white"
+        app:strokeColor="@color/main_button_stroke"
+        app:strokeWidth="0.5dp" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

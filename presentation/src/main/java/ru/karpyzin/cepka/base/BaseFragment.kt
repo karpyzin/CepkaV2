@@ -6,9 +6,8 @@ import androidx.annotation.LayoutRes
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import ru.karpyzin.cepka.R
+import ru.karpyzin.cepka.MainActivity
 
 @AndroidEntryPoint
 abstract class BaseFragment(
@@ -18,6 +17,8 @@ abstract class BaseFragment(
     protected abstract val binding: ViewBinding
 
     open val isBottomVisible: Boolean = true
+    open val isMainButtonVisible: Boolean = false
+    open val mainButtonIconRes: Int? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
@@ -27,7 +28,13 @@ abstract class BaseFragment(
             binding.root.updatePadding(top = statusBarHeight)
         }
 
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation).visibility = if (isBottomVisible) View.VISIBLE else View.GONE
+        (requireActivity() as? MainActivity)?.let {
+            it.updateMainButtonIcon(mainButtonIconRes)
+            it.showMainButton(isMainButtonVisible)
+        }
+
         super.onViewCreated(view, savedInstanceState)
     }
+
+    open fun onMainButtonClicked() {}
 }

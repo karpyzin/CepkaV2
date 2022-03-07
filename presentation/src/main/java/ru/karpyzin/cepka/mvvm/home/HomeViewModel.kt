@@ -57,6 +57,12 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
+    fun addReminder() {
+        viewModelScope.launch {
+            openScreen.emit(R.id.action_home_to_add_reminder)
+        }
+    }
+
     inner class TimelineManager {
         private val reminders = mutableListOf<CepkaListItem>()
         private val counters = mutableListOf<CepkaListItem>()
@@ -66,7 +72,7 @@ class HomeViewModel @ViewModelInject constructor(
         private val hintListener = object : HintListItem.Listener {
             override fun onClick(hintId: Int) {
                 viewModelScope.launch {
-                    openScreen.emit(R.id.navigation_hint)
+                    openScreen.emit(R.id.action_home_to_hint)
                 }
             }
 

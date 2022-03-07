@@ -21,6 +21,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by activityViewModels()
 
     override val binding by viewBinding(FragmentHomeBinding::bind)
+    override val isMainButtonVisible: Boolean
+        get() = true
+    override val mainButtonIconRes: Int?
+        get() = R.drawable.ic_add
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,6 +42,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             findNavController().navigate(it)
         }
 
+    }
+
+    override fun onMainButtonClicked() {
+        viewModel.addReminder()
     }
 
     private fun initAdapter() {

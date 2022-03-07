@@ -7,7 +7,22 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="ru.karpyzin.cepka.mvvm.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_home_to_add_reminder"
+            app:destination="@id/navigation_reminder"
+            app:enterAnim="@anim/screen_anim_fade_in"
+            app:exitAnim="@anim/screen_back_anim_fade_in"
+            app:popEnterAnim="@anim/screen_back_anim_fade_out"
+            app:popExitAnim="@anim/screen_anim_fade_out" />
+        <action
+            android:id="@+id/action_home_to_hint"
+            app:destination="@id/navigation_hint"
+            app:enterAnim="@anim/screen_anim_pop_in"
+            app:exitAnim="@anim/screen_back_anim_pop_in"
+            app:popEnterAnim="@anim/screen_back_anim_pop_out"
+            app:popExitAnim="@anim/screen_anim_pop_out" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_week"
         android:name="ru.karpyzin.cepka.mvvm.week.WeekFragment"
@@ -24,7 +39,7 @@
     <fragment
         android:id="@+id/navigation_hint"
         android:name="ru.karpyzin.cepka.mvvm.hint.HintFragment"
-        android:label="HintFragment"/>
+        android:label="HintFragment" />
 
     <fragment
         android:id="@+id/navigation_reminder"

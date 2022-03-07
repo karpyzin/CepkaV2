@@ -30,4 +30,6 @@
     <color name="reminder_background">@color/accent_purple_dark</color>
     <color name="hint_background">@color/accent_blue</color>
     <color name="counter_background">@color/accent_red</color>
+
+    <color name="main_button_stroke">#FFFFFF</color>
 </resources>
