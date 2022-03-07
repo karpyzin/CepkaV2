@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import ru.karpyzin.cepka.base.BaseFragment
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     private val viewModel: MainActivityViewModel by viewModels()
+
     private lateinit var binding: ActivityMainBinding
 
     private var mIsMainButtonEnabled: Boolean? = null
@@ -46,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         pushManager.message.collectWhenCreated(lifecycleScope) {
-            inAppMessage(InAppMessage(it.title, it.summary))
+            inAppMessage(it)
         }
 
         binding.mainActionButton.setDebounceOnClickListener { view ->
