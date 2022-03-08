@@ -7,9 +7,11 @@
     android:layout_marginStart="16dp"
     android:layout_marginTop="16dp"
     android:layout_marginBottom="16dp"
-    app:cardBackgroundColor="@color/accent_red"
+    app:cardBackgroundColor="@color/counter_background"
     app:cardCornerRadius="16dp"
-    app:cardElevation="8dp">
+    app:cardElevation="8dp"
+    app:strokeColor="@color/accent_red"
+    app:strokeWidth="2dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

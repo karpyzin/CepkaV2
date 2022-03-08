@@ -39,7 +39,12 @@
     <fragment
         android:id="@+id/navigation_hint"
         android:name="ru.karpyzin.cepka.mvvm.hint.HintFragment"
-        android:label="HintFragment" />
+        android:label="HintFragment">
+        <argument
+            android:name="hintId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_reminder"

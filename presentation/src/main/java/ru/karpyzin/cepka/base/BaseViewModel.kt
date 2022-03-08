@@ -3,6 +3,7 @@ package ru.karpyzin.cepka.base
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavDirections
 import kotlinx.coroutines.flow.MutableSharedFlow
 import ru.karpyzin.cepka.view.widgets.InAppMessage
 
@@ -11,6 +12,7 @@ abstract class BaseViewModel(
 ) : ViewModel() {
 
     val openScreen = MutableSharedFlow<Int>()
+    val openScreenWithArgs = MutableSharedFlow<NavDirections>()
     val backClick = MutableSharedFlow<Boolean>()
     val inAppMessage = MutableSharedFlow<InAppMessage>()
 

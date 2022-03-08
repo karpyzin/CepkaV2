@@ -29,7 +29,7 @@ class CategoryListItem(private val data: CategoryModel, private val isSelected: 
         val background = if (isSelected) {
             R.color.accent_red2
         } else {
-            R.color.accent_red
+            R.color.counter_background
         }
 
         if (isSelected) {

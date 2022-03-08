@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import ru.karpyzin.cepka.R
 import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.base.BaseViewModel
+import ru.karpyzin.cepka.mvvm.hint.HintFragment
 import ru.karpyzin.cepka.view.listitems.*
 import ru.karpyzin.cepka.view.widgets.InAppMessage
 import ru.karpyzin.domain.account.AccountModel
@@ -73,7 +74,7 @@ class HomeViewModel @ViewModelInject constructor(
         private val hintListener = object : HintListItem.Listener {
             override fun onClick(hintId: Int) {
                 viewModelScope.launch {
-                    openScreen.emit(R.id.action_home_to_hint)
+                    openScreenWithArgs.emit(HomeFragmentDirections.actionHomeToHint(hintId))
                 }
             }
 

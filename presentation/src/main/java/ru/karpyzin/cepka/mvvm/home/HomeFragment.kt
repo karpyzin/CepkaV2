@@ -23,7 +23,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override val binding by viewBinding(FragmentHomeBinding::bind)
     override val isMainButtonVisible: Boolean
         get() = true
-    override val mainButtonIconRes: Int?
+    override val mainButtonIconRes: Int
         get() = R.drawable.ic_add
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,6 +39,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
 
         viewModel.openScreen.collectAndRepeatWithViewLifecycle(viewLifecycleOwner) {
+            findNavController().navigate(it)
+        }
+
+        viewModel.openScreenWithArgs.collectAndRepeatWithViewLifecycle(viewLifecycleOwner) {
             findNavController().navigate(it)
         }
 

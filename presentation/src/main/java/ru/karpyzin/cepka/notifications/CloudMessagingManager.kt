@@ -1,5 +1,6 @@
 package ru.karpyzin.cepka.notifications
 
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +25,12 @@ class CloudMessagingManager @Inject constructor(
         const val KEY_TITLE = "key_title"
         const val KEY_SUMMARY = "key_summary"
         const val TYPE_NOTIFICATION = "type_notification"
+        const val TYPE_STORY = "type_story"
+
+        const val TOPIC_STORIES = "topic_story"
     }
+
+    private val service = FirebaseMessaging.getInstance()
 
     fun onMessageReceived(data: RemoteMessage) {
         coroutineScope.launch(Dispatchers.IO) {
@@ -48,10 +54,10 @@ class CloudMessagingManager @Inject constructor(
     }
 
     fun subscribe(type: String) {
-
+        service.subscribeToTopic(type)
     }
 
     fun unsubscribe(type: String) {
-
+        service.unsubscribeFromTopic(type)
     }
 }

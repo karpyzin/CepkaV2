@@ -1,15 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_background_color">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/id"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/hintImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="asdasdasd"
-        android:textColor="@color/accent_blue_dark" />
+        android:scaleType="centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/layout_shadow_top_bottom"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="@+id/hintPrimaryText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/hintPrimaryText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingBottom="16dp"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:fontFamily="sans-serif-black"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="What about sport" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/layout_shadow_top_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hintSecondaryText" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/hintSecondaryText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="32dp"
+        android:ellipsize="end"
+        android:maxLines="5"
+        android:paddingTop="32dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hintImage"
+        tools:layout_editor_absoluteX="16dp"
+        tools:text="@tools:sample/lorem/random" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ interface HintUseCase {
     val hints: Flow<List<HintModel>>
     suspend fun read(id: Int)
     suspend fun createBaseHints()
+    suspend fun get(id: Int): HintModel?
 }
 
 class HintUseCaseImpl @Inject constructor(private val repository: HintRepository) : HintUseCase {
@@ -26,5 +27,9 @@ class HintUseCaseImpl @Inject constructor(private val repository: HintRepository
         hints.add(HintModel(0, 0, "Finances", "Can you spend your money?", HintModel.HintContentModel(null, "https://miro.medium.com/max/1400/1*lJoevcmt5HHTWbaz0u-s6w.jpeg", null, null), false))
         hints.add(HintModel(0, 0, "Time...", "Time management life hacks!", HintModel.HintContentModel(null, "https://www.timedoctor.com/blog/images/2017/12/Preview-min-11-770x470.jpg", null, null), false))
         repository.addHints(hints)
+    }
+
+    override suspend fun get(id: Int): HintModel? {
+        return repository.get(id)
     }
 }
