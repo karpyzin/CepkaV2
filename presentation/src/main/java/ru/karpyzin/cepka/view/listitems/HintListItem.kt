@@ -3,6 +3,7 @@ package ru.karpyzin.cepka.view.listitems
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.karpyzin.cepka.adapter.BaseViewHolder
 import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.databinding.ListitemHintBinding
@@ -26,12 +27,14 @@ data class HintListItem(private val data: HintModel) : CepkaListItem {
         return Objects.hash(data.id, data.primaryText, data.secondaryText)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = with(holder as ViewHolder) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int): Unit = with(holder as ViewHolder) {
         binding.hintPrimaryText.text = data.primaryText
         binding.hintSecondaryText.text = data.secondaryText
         binding.root.setDebounceOnClickListener {
             listener?.onClick(data.id)
         }
+
+        Glide.with(binding.root).load(data.contentData?.primaryImageUri).into(binding.hintImage)
     }
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =

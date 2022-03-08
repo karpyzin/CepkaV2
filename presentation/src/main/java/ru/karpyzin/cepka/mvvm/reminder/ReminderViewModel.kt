@@ -39,7 +39,6 @@ class ReminderViewModel @ViewModelInject constructor(
     private val ct = Calendar.getInstance()
 
     init {
-        ct.add(Calendar.HOUR, 1)
         date = date.copy(
             year = ct[Calendar.YEAR],
             month = ct[Calendar.MONTH],
@@ -59,7 +58,11 @@ class ReminderViewModel @ViewModelInject constructor(
         updateTime()
     }
 
-    fun changeDate(year: Int, month: Int, day: Int) {
+    fun changeDate(long: Long) {
+        ct.timeInMillis = long
+        val year: Int = ct[Calendar.YEAR]
+        val month: Int = ct[Calendar.MONTH]
+        val day: Int = ct[Calendar.DAY_OF_MONTH]
         ct.set(year, month, day, date.hour, date.minute)
         date = date.copy(year = year, month = month, day = day, millis = ct.timeInMillis)
 

@@ -1,16 +1,15 @@
 package ru.karpyzin.cepka.mvvm.reminder
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.DatePicker
-import android.widget.TimePicker
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat.CLOCK_24H
 import ru.karpyzin.cepka.R
 import ru.karpyzin.cepka.adapter.CepkaAdapter
 import ru.karpyzin.cepka.base.BaseFragment
@@ -21,13 +20,18 @@ import ru.karpyzin.cepka.ext.setDebounceOnClickListener
 import ru.karpyzin.cepka.ext.showKeyboard
 import ru.karpyzin.cepka.view.viewBinding
 import ru.karpyzin.cepka.view.widgets.inAppMessage
+import java.util.*
 
-class ReminderFragment : BaseFragment(R.layout.fragment_reminder), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+class ReminderFragment : BaseFragment(R.layout.fragment_reminder) {
 
     private val viewModel: ReminderViewModel by viewModels()
 
-    private var timePicker: TimePickerDialog? = null
-    private var datePicker: DatePickerDialog? = null
+    private var timePicker: MaterialTimePicker = MaterialTimePicker.Builder()
+        .setTimeFormat(CLOCK_24H)
+        .setHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
+        .setMinute(Calendar.getInstance().get(Calendar.MINUTE))
+        .build()
+    private var datePicker = MaterialDatePicker.Builder.datePicker().build()
     private val adapter by lazy { CepkaAdapter() }
 
     override val binding by viewBinding(FragmentReminderBinding::bind)
@@ -41,17 +45,20 @@ class ReminderFragment : BaseFragment(R.layout.fragment_reminder), DatePickerDia
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
 
-        timePicker = TimePickerDialog(requireContext(), this, 0, 0, true)
-        datePicker = DatePickerDialog(requireContext(), this, 0, 0, 0)
-
         binding.reminderTitleEditText.requestFocus()
 
-        binding.timeTextView.setDebounceOnClickListener {
-            timePicker?.show()
+        binding.timeLayout.setDebounceOnClickListener {
+            timePicker.show(childFragmentManager, "")
         }
 
-        binding.dateTextView.setDebounceOnClickListener {
-            datePicker?.show()
+        binding.dateLayout.setDebounceOnClickListener {
+            datePicker.show(childFragmentManager, "")
+        }
+        datePicker.addOnPositiveButtonClickListener {
+            viewModel.changeDate(it)
+        }
+        timePicker.addOnPositiveButtonClickListener {
+            viewModel.changeTime(timePicker.hour, timePicker.minute)
         }
 
         binding.reminderTitleEditText.addTextChangedListener {
@@ -74,8 +81,6 @@ class ReminderFragment : BaseFragment(R.layout.fragment_reminder), DatePickerDia
             binding.timeTextView.text = it.time
             binding.reminderTitleEditText.setText(it.title)
             binding.reminderDescriptionEditText.setText(it.description)
-            timePicker?.updateTime(it.calendar?.hour ?: 0, it.calendar?.minute ?: 0)
-            datePicker?.updateDate(it.calendar?.year ?: 0, it.calendar?.month ?: 0, it.calendar?.day ?: 0)
         }
 
         viewModel.categoriesFlow.collectWhenCreated(lifecycleScope) {
@@ -93,14 +98,6 @@ class ReminderFragment : BaseFragment(R.layout.fragment_reminder), DatePickerDia
 
     override fun onMainButtonClicked() {
         viewModel.createReminder()
-    }
-
-    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        viewModel.changeDate(year, month, dayOfMonth)
-    }
-
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        viewModel.changeTime(hourOfDay, minute)
     }
 
     private fun initAdapter() {
