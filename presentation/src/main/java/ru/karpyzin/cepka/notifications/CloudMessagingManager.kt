@@ -5,6 +5,7 @@ import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class CloudMessagingManager @Inject constructor(
@@ -25,9 +26,10 @@ class CloudMessagingManager @Inject constructor(
         const val KEY_TITLE = "key_title"
         const val KEY_SUMMARY = "key_summary"
         const val TYPE_NOTIFICATION = "type_notification"
+        const val TYPE_MESSAGE = "type_message"
         const val TYPE_STORY = "type_story"
 
-        const val TOPIC_STORIES = "topic_story"
+        const val TOPIC_STORIES = "topic_stories"
     }
 
     private val service = FirebaseMessaging.getInstance()
@@ -50,7 +52,7 @@ class CloudMessagingManager @Inject constructor(
     }
 
     fun onNewToken(token: String) {
-
+        Timber.e("new token $token")
     }
 
     fun subscribe(type: String) {

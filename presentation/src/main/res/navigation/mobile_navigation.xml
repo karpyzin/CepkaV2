@@ -58,4 +58,8 @@
         android:id="@+id/navigation_profile"
         android:name="ru.karpyzin.cepka.mvvm.profile.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="ru.karpyzin.cepka.mvvm.chat.ChatFragment"
+        android:label="ChatFragment" />
 </navigation>

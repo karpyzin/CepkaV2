@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Cepka</string>
-    <string name="header_username">Привет, %s!  🔥</string>
-    <string name="header_username_default">Привет! 🔥</string>
+    <string name="header_username">Hello, %s!  🔥</string>
+    <string name="header_username_default">Hello! 🔥</string>
 </resources>

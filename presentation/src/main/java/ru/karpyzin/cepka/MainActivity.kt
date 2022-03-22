@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import ru.karpyzin.cepka.base.BaseFragment
@@ -18,7 +17,6 @@ import ru.karpyzin.cepka.ext.setDebounceOnClickListener
 import ru.karpyzin.cepka.notifications.PushManager
 import ru.karpyzin.cepka.view.animation.FloatingAnimation
 import ru.karpyzin.cepka.view.animation.FloatingBoomAnimation
-import ru.karpyzin.cepka.view.widgets.InAppMessage
 import ru.karpyzin.cepka.view.widgets.inAppMessage
 import javax.inject.Inject
 

@@ -14,6 +14,7 @@ class MessagingService : FirebaseMessagingService() {
     lateinit var cloudMessagingManager: CloudMessagingManager
 
     override fun onNewToken(p0: String) {
+        Timber.e("new token $p0")
         cloudMessagingManager.onNewToken(p0)
     }
 

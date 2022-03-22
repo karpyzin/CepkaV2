@@ -56,8 +56,8 @@ dependencies {
 
     //Hilt
     implementation deps.hilt.android
-    implementation 'com.google.firebase:firebase-core:20.0.0'
-    implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.firebase:firebase-core:20.1.1'
+    implementation 'com.google.firebase:firebase-auth:21.0.2'
     kapt deps.hilt.compiler
     kapt deps.hilt.androidxCompiler
     implementation deps.hilt.lifecycle

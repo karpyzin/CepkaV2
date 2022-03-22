@@ -28,14 +28,6 @@
             app:srcCompat="@drawable/ic_reminder"
             app:tint="@color/white" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/emoji"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/appCompatImageView"
-            app:layout_constraintTop_toTopOf="@+id/appCompatImageView"
-            tools:text="❤️" />
-
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/titleTextView"
             android:layout_width="0dp"

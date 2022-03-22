@@ -28,6 +28,13 @@ abstract class AppDatabase : RoomDatabase() {
         private val rdc = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 db.execSQL("INSERT INTO SettingsEntity (id, isFirstRun) VALUES (null, 1)")
+                db.execSQL("INSERT INTO CategoryEntity (id, type, name, icon) VALUES (null, 0, \"Default\", \"️😊\")")
+                db.execSQL("INSERT INTO CategoryEntity (id, type, name, icon) VALUES (null, 0, \"Sport\", \"️🏃🏼\")")
+                db.execSQL("INSERT INTO CategoryEntity (id, type, name, icon) VALUES (null, 0, \"Love\", \"️❤️\")")
+                db.execSQL("INSERT INTO CategoryEntity (id, type, name, icon) VALUES (null, 0, \"Shop\", \"️🛍\")")
+                db.execSQL("INSERT INTO CategoryEntity (id, type, name, icon) VALUES (null, 0, \"Family\", \"️👨‍👩‍👦\")")
+                db.execSQL("INSERT INTO CategoryEntity (id, type, name, icon) VALUES (null, 0, \"Work\", \"️👔\")")
+                db.execSQL("INSERT INTO CategoryEntity (id, type, name, icon) VALUES (null, 0, \"Party\", \"🎉\")")
             }
         }
 

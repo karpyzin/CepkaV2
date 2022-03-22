@@ -30,9 +30,10 @@
         <entry key="presentation/src/main/res/drawable/layout_shadow_top_bottom.xml" value="0.1265" />
         <entry key="presentation/src/main/res/layout/activity_main.xml" value="0.34288747346072185" />
         <entry key="presentation/src/main/res/layout/activity_main2.xml" value="0.3098958333333333" />
+        <entry key="presentation/src/main/res/layout/fragment_chat.xml" value="0.4036458333333333" />
         <entry key="presentation/src/main/res/layout/fragment_hint.xml" value="0.20179901123046878" />
         <entry key="presentation/src/main/res/layout/fragment_home.xml" value="0.1962962962962963" />
-        <entry key="presentation/src/main/res/layout/fragment_reminder.xml" value="0.6541106673311596" />
+        <entry key="presentation/src/main/res/layout/fragment_reminder.xml" value="0.3456588240694409" />
         <entry key="presentation/src/main/res/layout/fragment_sign_in.xml" value="0.2037037037037037" />
         <entry key="presentation/src/main/res/layout/layout_header.xml" value="0.23697916666666666" />
         <entry key="presentation/src/main/res/layout/layout_main.xml" value="0.16666666666666666" />
@@ -45,7 +46,7 @@
         <entry key="presentation/src/main/res/layout/listitem_hint.xml" value="0.6515857837818287" />
         <entry key="presentation/src/main/res/layout/listitem_home_header.xml" value="0.30512820512820515" />
         <entry key="presentation/src/main/res/layout/listitem_home_subtitle.xml" value="0.2037037037037037" />
-        <entry key="presentation/src/main/res/layout/listitem_remind_block.xml" value="0.674407685108674" />
+        <entry key="presentation/src/main/res/layout/listitem_remind_block.xml" value="0.2882758620689655" />
         <entry key="presentation/src/main/res/layout/widget_inappmessage.xml" value="0.5678482055664062" />
         <entry key="presentation/src/main/res/layout/widget_toolbar.xml" value="1.2814665629367326" />
         <entry key="presentation/src/main/res/menu/bottom_navigation_bar.xml" value="0.3098958333333333" />

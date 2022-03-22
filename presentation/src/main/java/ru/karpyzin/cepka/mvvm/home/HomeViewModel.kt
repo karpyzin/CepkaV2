@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 import ru.karpyzin.cepka.R
 import ru.karpyzin.cepka.adapter.CepkaListItem
 import ru.karpyzin.cepka.base.BaseViewModel
-import ru.karpyzin.cepka.mvvm.hint.HintFragment
 import ru.karpyzin.cepka.view.listitems.*
 import ru.karpyzin.cepka.view.widgets.InAppMessage
 import ru.karpyzin.domain.account.AccountModel
@@ -43,7 +42,7 @@ class HomeViewModel @ViewModelInject constructor(
 
         list.add(account)
         list.add(hints)
-        list.addAll(timelineManager.updateFinances())
+        //list.addAll(timelineManager.updateFinances())
         list.addAll(reminders)
         list.addAll(counters)
 
@@ -123,7 +122,7 @@ class HomeViewModel @ViewModelInject constructor(
 
             override fun onProfileClick() {
                 viewModelScope.launch {
-                    val screen = if (accountUseCase.isAuthorized()) R.id.navigation_profile else R.id.navigation_sign_in
+                    val screen = if (accountUseCase.isAuthorized()) R.id.navigation_chat else R.id.navigation_sign_in
 
                     openScreen.emit(screen)
                 }

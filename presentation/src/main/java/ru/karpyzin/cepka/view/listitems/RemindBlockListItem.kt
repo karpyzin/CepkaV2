@@ -32,7 +32,7 @@ class RemindBlockListItem(private val data: ReminderModel) : CepkaListItem {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = with((holder as ViewHolder).binding) {
         titleTextView.text = data.title
-        remindDescriptionTextView.text = data.description
+        remindDescriptionTextView.text = data.emoji + " " + data.description
         val minutesToLeft = (data.date - System.currentTimeMillis()) / (60 * 1000)
         val time = when {
             minutesToLeft < 0 -> "⏰ ${minutesToLeft * (-1)} minutes ago"
@@ -51,7 +51,6 @@ class RemindBlockListItem(private val data: ReminderModel) : CepkaListItem {
         remindMoreButton.setDebounceOnClickListener {
             listener?.onMoreClick(data.id)
         }
-        emoji.text = data.emoji
     }
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
